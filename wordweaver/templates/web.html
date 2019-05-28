@@ -1,0 +1,30 @@
+<!DOCTYPE doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>WordWeaver GUI Sample</title>
+  <base href="/" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="{{ url_for('static', filename='web/assets/favicon.ico') }}" rel="icon" type="image/x-icon" />
+</head>
+
+
+<body>
+  <app-root></app-root>
+  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/WordWeaver-GUI/dist_toy/styles.js"
+    type="text/javascript"></script>
+  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/WordWeaver-GUI/dist_toy/runtime.js"
+    type="text/javascript"></script>
+  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/WordWeaver-GUI/dist_toy/polyfills.js"
+    type="text/javascript"></script>
+  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/WordWeaver-GUI/dist_toy/scripts.js"
+    type="text/javascript"></script>
+  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/WordWeaver-GUI/dist_toy/vendor.js"
+    type="text/javascript"></script>
+  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/WordWeaver-GUI/dist_toy/main.js"
+    type="text/javascript"></script>
+</body>
+
+</html>

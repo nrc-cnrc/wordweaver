@@ -1,0 +1,77 @@
+echart:
+  path: "http://localhost:5000/api/v1/{ep}"
+  name: "kawennón:nis"
+filemaker:
+  title: 'Kawennón:nis'
+  docx_tiers:
+    - name: main
+      sep: ''
+    - name: main
+      sep: ' - '
+    - name: secondary
+      sep: ' - '
+    - name: ternary
+      sep: ' - '
+    - name: translation
+  latex_tiers:
+    - name: main
+      sep: ''
+    - name: main
+      sep: '-'
+    - name: secondary
+      sep: '-'
+    - name: ternary
+      sep: '-'
+    - name: translation
+  tier_defs:
+    - name: main
+      vb:
+        keys: 
+          - 'value'
+        sep: ''
+      pn:
+        keys: 
+          - 'value'
+        sep: ''
+      aff:
+        keys: 
+          - 'value'
+        sep: ''
+    - name: secondary
+      vb:
+        keys: 
+          - 'verb'
+        sep: ''
+      pn:
+        keys: 
+          - 'pronoun'
+        sep: ''
+      aff:
+        keys: 
+          - 'gloss'
+        sep: ''
+    - name: ternary
+      vb:
+        keys: 
+          - 'gloss'
+        sep: ''
+      pn:
+        keys: 
+          - 'gloss'
+          - 'obj_gloss'
+        sep: ' > '
+      aff:
+        keys: 
+          - 'value'
+        sep: ''
+    - name: translation
+flask:
+  bg_img: 'static/web/assets/img/bg.jpg'
+swagger:
+  pre: "swagger-pre.json"
+  post: "swagger.json"
+  pointers:
+    vb: '/components/schemas/VerbTags/enum'
+    pn: '/components/schemas/PronounTags/enum'
+    aff: '/components/schemas/AffixTags/enum'
+    ao: '/components/schemas/AffOptionTags/enum'

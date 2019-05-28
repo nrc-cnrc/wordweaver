@@ -1,0 +1,14 @@
+Flask
+flask_restful
+flask_cors
+jsonpointer
+python-slugify
+six
+gunicorn
+requests
+coloredlogs
+flask-talisman
+python-docx
+pylatexenc
+jinja2
+pyyaml

@@ -1,0 +1,188 @@
+# Affixes
+affixes:
+  tmp_affix:
+    "fut": 
+      'tag': "Fut+"
+      'marker': 'Fut'
+    "cond": 
+      'tag': "Cond+"
+      'marker': 'Cond'
+    "past":
+      'tag': "DefPast+"
+      'marker': 'Past'
+    "pres": 
+      'tag': ""
+      'marker': ""
+  aspect:
+    "habitual": 
+      'tag': "+Habitual"
+      'marker': 'H'
+    "perf":
+      'tag': "+Perf"
+      'marker': 'R'
+    "punct": 
+      'tag': "+Punct"
+      'marker': 'P'
+    "command":
+      'tag': "+Command"
+      'marker': 'C'
+    "stative": 
+      'tag': "+State"
+      'marker': 'S'
+  post_aspectual_suffix:
+    "cont": 
+      'tag': "+Cont"
+      'marker': 'Cont'
+    "fpast": 
+      'tag': "+FPast"
+      'marker': "FP"
+    "progr": 
+      'tag': "+Progr"
+      'marker': 'Progr'
+
+# Affix Options
+affix_options:
+  - tag: habpres
+    gloss: Habitual (present)
+    affixes:
+      - habitual
+      - pres
+    public: true
+
+  - tag: habfut
+    gloss: Habitual (future)
+    affixes: 
+      - habitual
+      - fut
+      - cont
+    public: false
+
+  - tag: habpast
+    gloss: Habitual (past)
+    affixes:
+      - habitual
+      - fpast
+    public: true
+
+  - tag: habcond
+    gloss: Habitual (conditional)
+    affixes:
+      - habitual
+      - cond
+      - cont
+    public: false
+
+  - tag: command
+    gloss: Command
+    affixes:
+      - command
+      - pres
+    public: true
+
+  - tag: defpast
+    gloss: Definite Past
+    affixes:
+      - punct
+      - past
+    public: true
+
+  - tag: indef
+    gloss: Indefinite
+    affixes:
+      - punct
+      - cond
+    public: true
+
+  - tag: punctfut
+    gloss: Future (punctual)
+    affixes:
+      - punct
+      - fut
+    public: true
+
+  - tag: perfpres
+    gloss: Perfective (present)
+    affixes:
+      - perf
+      - pres
+    public: true
+
+  - tag: perfcond
+    gloss: Perfective (conditional)
+    affixes:
+      - perf
+      - cond
+    public: true
+
+  - tag: presprogr
+    gloss: Progressive (present)
+    affixes: 
+      - progr
+      - perf
+    public: false
+
+  - tag: statepres
+    gloss: Stative (present)
+    affixes:
+      - stative
+      - pres
+    public: true
+
+# Pronouns
+pronouns:
+    "1-sg": "Sg1"
+    "2-sg": "Sg2"
+    "3-sg-m": "Sg3Mal"
+    "3-sg-f": "Sg3Fem"
+    "3-sg-n": "Sg3Neuter"
+    "1-dl-incl": "Du21"
+    "1-dl-excl": "Du31"
+    "2-dl": "Du2"
+    "3-dl-m": "Du3"
+    "3-dl-f": "Du3Fem"
+    "1-pl-incl":  "Pl2Sg1" 
+    "1-pl-excl": "Pl3Sg1"
+    "2-pl": "Pl2"
+    "3-pl-m": "Pl3" 
+    "3-pl-f": "Pl3Fem"
+
+pronoun_role:
+  "agent": "Agent"
+  "patient": "Pat"
+  
+verb_type:
+    "red": 
+      tag: "Active+"
+      pronouns: 'agent'
+    "blue": 
+      tag: "Passive+"
+      pronouns: 'patient'
+    "purple": 
+      tag: "Transitive+"
+      pronouns: 'transitive'
+      # Transitive filter, don't allow combinations with the following keys/values
+      filter:
+        - agent:
+            key: person
+            value: "1"
+          patient:
+            key: person
+            value: "1"
+        - agent:
+            key: person
+            value: "2"
+          patient:
+            key: person
+            value: "2"
+        - agent:
+            key: inclusivity
+            value: incl
+          patient:
+            key: person
+            value: "2"
+        - agent:
+            key: person
+            value: "2"
+          patient:
+            key: inclusivity
+            value: incl

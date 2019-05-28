@@ -1,0 +1,41 @@
+encoding:
+  template: 
+    - "Verb+"
+    - "{tmp_affix}"
+    - "{verb_type}"
+    - "{agent}" 
+    - "{patient}"
+    - "{root}"
+    - "{aspect}"
+    - "{post_aspectual_suffix}"
+  post_processing:
+    - conditions:
+        - template_arg_key: aspect
+          equal_to: "+Perf"
+        - template_arg_key: verb_type
+          equal_to: "Active+"
+      results:
+        - operation: switch_pros
+        - template_arg_key: verb_type
+          equal_to: "Passive+"
+decoding:
+  pronoun: "PP-"
+  bundled_affixes:
+    dup: "TE"
+    quant: "NI"
+    tpref: "T"
+    aug: "Aug"
+  root: "R-"
+  keys_regex: (?<=\^)[A-Z][\w\-\']*(?=\^)
+  vals_regex: \^[A-Z][\w\-\']*\^
+  validation:
+    - root
+    - pronoun
+    - aspect
+
+
+
+
+
+
+

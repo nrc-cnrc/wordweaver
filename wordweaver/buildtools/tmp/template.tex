@@ -1,0 +1,39 @@
+\documentclass[11pt]{article}
+    \usepackage{times}
+    \usepackage{url}
+    \usepackage{latexsym}
+    \usepackage{graphicx}
+    \usepackage{amsmath}
+    \usepackage{tipa}
+    \usepackage{multicol}
+    \usepackage{expex}
+    \usepackage{float}
+    \usepackage{changepage}
+    \usepackage{textcomp}
+    
+    \title{ \jvar{ data.title } }
+    
+    \begin{document}
+    \maketitle
+    
+    \begin{multicols}{2} \raggedcolumns
+    
+    \jblock{ for c in data.conjugations }
+        \lingset{glspace=!0pt plus .2em}
+        \ex[glhangstyle=none]
+        \let\\=\textsc
+        \begingl
+        \jblock{ for t in c }
+            \jblock{ if c.index(t) == 0}
+            \gla \jvar{ t }//
+            \jblock{ endif }
+            \jblock{ if c.index(t) != 0}
+            \glb \jvar{ t } //
+            \jblock{ endif }
+        \jblock{ endfor }
+        \endgl
+        \xe
+    \jblock{ endfor }
+    \end{multicols}
+    
+    \end{document}
