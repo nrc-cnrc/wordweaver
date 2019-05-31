@@ -8,10 +8,10 @@ from tempfile import NamedTemporaryFile, TemporaryFile, mkstemp
 from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with, marshal)
 from flask_cors import CORS
 from slugify import slugify
+from wordweaver.app import app
 
-from wordweaver import app
-
-if app.config['FOMA_PYTHON_BINDINGS']:
+fpb = app.config['FOMA_PYTHON_BINDINGS']
+if fpb:
     from wordweaver.fst.utils.foma_access_python import foma_access_python as foma_access
 else:
     from wordweaver.fst.utils.foma_access import foma_access
@@ -21,7 +21,7 @@ from wordweaver.fst.encoder import FstEncoder
 from wordweaver.exceptions import FomaInputException
 from wordweaver.fst.english_generator import EnglishGenerator
 from wordweaver.resources import require_appkey
-from wordweaver.data.api_data.models import verb_data
+from wordweaver.data import verb_data
 from wordweaver.buildtools.file_maker import DocxMaker, LatexMaker
 
 from wordweaver.resources.affix import affix_fields
@@ -30,9 +30,7 @@ from wordweaver.resources.verb import verb_fields
 
 import itertools
 
-from wordweaver.configs import ENV_CONFIG
-from wordweaver.data import fomabins as fomabins_dir
-
+fomabins_dir = os.path.join(app.config['DATA_DIR'], 'fomabins')
 
 
 conjugation_fields = {
@@ -45,8 +43,8 @@ conjugation_fields = {
 }
 
 class ConjugationList(Resource):
-    def __init__(self, fp=foma_access(os.path.join(os.path.dirname(fomabins_dir.__file__),
-                               ENV_CONFIG['fst_filename']))):
+    def __init__(self, fp=foma_access(os.path.join(fomabins_dir,
+                               app.config["FST_FILENAME"]))):
         print(fp.path_to_model)
         self.parser = reqparse.RequestParser()
         self.fp = fp
@@ -370,14 +368,14 @@ api2.add_resource(
     ConjugationList,
     '/conjugations',
     endpoint='conjugations', 
-    resource_class_kwargs={'fp': foma_access(os.path.join(os.path.dirname(fomabins_dir.__file__),
-                           ENV_CONFIG['test_fst_filename']))}
+    resource_class_kwargs={'fp': foma_access(os.path.join(fomabins_dir,
+                           app.config['TEST_FST_FILENAME']))}
 )
 
 api2.add_resource(
     ConjugationVerbList,
     '/conjugations/<string:verb>',
     endpoint='conjugations/verb', 
-    resource_class_kwargs={'fp': foma_access(os.path.join(os.path.dirname(fomabins_dir.__file__),
-                           ENV_CONFIG['test_fst_filename']))}
+    resource_class_kwargs={'fp': foma_access(os.path.join(fomabins_dir,
+                           app.config['TEST_FST_FILENAME']))}
 )

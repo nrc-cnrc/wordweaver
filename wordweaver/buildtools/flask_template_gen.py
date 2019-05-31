@@ -2,7 +2,7 @@
 import os
 from bs4 import BeautifulSoup
 import wordweaver
-from wordweaver.configs import BUILD_CONFIG
+from wordweaver.config import BUILD_CONFIG
 
 class FlaskTemplateGenerator():
     def __init__(self, plt, path):

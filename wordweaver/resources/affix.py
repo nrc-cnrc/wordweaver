@@ -8,9 +8,9 @@ import json
 from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with, marshal)
 # from flask_apispec import use_kwargs, marshal_with
 from flask_cors import CORS
-from wordweaver.data.api_data.models import affix_data
+from wordweaver.data import affix_data
 from wordweaver.resources import require_appkey
-from wordweaver.configs import LANG_CONFIG
+from wordweaver.config import LANG_CONFIG
 from slugify import slugify
 from itertools import chain
 import yaml

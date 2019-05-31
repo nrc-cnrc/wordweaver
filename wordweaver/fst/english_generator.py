@@ -1,6 +1,6 @@
 import re
-from wordweaver.data.api_data.models import pronoun_data as pd, verb_data as vd
-from wordweaver.configs import LANG_CONFIG
+from wordweaver.data import pronoun_data as pd, verb_data as vd
+from wordweaver.config import LANG_CONFIG
 
 class EnglishGenerator():
     """Generate basic plain English based on tag from FstTagMaker

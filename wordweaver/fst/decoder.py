@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import re
-from wordweaver.configs import INTERFACE_CONFIG, LANG_CONFIG
-from wordweaver.data.api_data.models import affix_data
+from wordweaver.config import INTERFACE_CONFIG, LANG_CONFIG
+from wordweaver.data import affix_data
 from itertools import chain
 from slugify import slugify
 

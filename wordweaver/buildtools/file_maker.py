@@ -1,12 +1,12 @@
 from docx import Document
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
+from wordweaver.data import affix_data, pronoun_data, verb_data
 from wordweaver import buildtools
 import os
 from time import time
 import jinja2
 import re
 from pylatexenc.latexencode import utf8tolatex
-from wordweaver.configs import BUILD_CONFIG, LANG_CONFIG
+from wordweaver.config import BUILD_CONFIG, LANG_CONFIG
 
 
 class FileMaker:

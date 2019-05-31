@@ -7,9 +7,9 @@ from flask import jsonify, Blueprint, abort
 import json
 from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with)
 from flask_cors import CORS
-from wordweaver.data.api_data.models import pronoun_data
+from wordweaver.data import pronoun_data
 from wordweaver.resources import require_appkey
-from wordweaver.configs import INTERFACE_CONFIG, LANG_CONFIG
+from wordweaver.config import INTERFACE_CONFIG, LANG_CONFIG
 from slugify import slugify
 
 for pn in pronoun_data:

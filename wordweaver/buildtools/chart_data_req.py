@@ -1,9 +1,9 @@
 import requests
 import json
-from wordweaver.data.api_data.models import pronoun_data, verb_data
+from wordweaver.data import pronoun_data, verb_data
 from wordweaver.resources.affix import AFFIX_OPTIONS
 from pydash import merge
-from wordweaver.configs import BUILD_CONFIG
+from wordweaver.config import BUILD_CONFIG
 
 
 class ChartData():

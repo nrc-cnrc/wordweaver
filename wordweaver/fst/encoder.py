@@ -1,14 +1,14 @@
 from flask import abort
 
 from collections import OrderedDict
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
+from wordweaver.data import affix_data, pronoun_data, verb_data
 import re
 from wordweaver.exceptions import FomaInputException
 from wordweaver.resources.affix import AFFIX_OPTIONS
 
 from wordweaver.resources.pronoun import PnOptions
 
-from wordweaver.configs import INTERFACE_CONFIG, LANG_CONFIG
+from wordweaver.config import INTERFACE_CONFIG, LANG_CONFIG
 
 import logging
 

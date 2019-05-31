@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from wordweaver import app
+from wordweaver.app import app
 from flask import render_template, url_for
 
-from wordweaver.data.api_data import models
 import os
 from wordweaver.resources.verb import verb_api
 from wordweaver.resources.pronoun import pronoun_api

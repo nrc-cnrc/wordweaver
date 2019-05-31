@@ -4,19 +4,12 @@ Create API Resource for returning all available verbs
 """
 
 from flask import jsonify, Blueprint, abort
-
 import json
-
 from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with)
-
 from flask_cors import CORS
-
 from wordweaver.resources.affix import affix_fields
-
-from wordweaver.data.api_data.models import affix_data, verb_data
-
+from wordweaver.data import affix_data, verb_data
 from wordweaver.resources import require_appkey
-
 from slugify import slugify
 
 for v in verb_data:

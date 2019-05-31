@@ -6,14 +6,16 @@ import os
 from jsonpointer import resolve_pointer, set_pointer
 from slugify import slugify
 from wordweaver.resources.affix import AFFIX_OPTIONS
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
-from wordweaver.data import swagger
+from wordweaver.data import affix_data, pronoun_data, verb_data
 from wordweaver import static
-from wordweaver.configs import BUILD_CONFIG
+from wordweaver.config import BUILD_CONFIG
+from wordweaver.app import app
+
+swagger_dir = os.path.join(os.path.abspath(app.config['data_dir']), 'swagger')
 
 class SwaggerSpecGenerator():
     def __init__(self):
-        self.pre_path = os.path.join(os.path.dirname(swagger.__file__), BUILD_CONFIG['pre'])
+        self.pre_path = os.path.join(swagger_dir, BUILD_CONFIG['pre'])
         self.post_path = os.path.join(os.path.dirname(static.__file__), BUILD_CONFIG['post'])
         with open(self.pre_path, 'r', encoding='utf8') as f:
             self.data = json.load(f)
