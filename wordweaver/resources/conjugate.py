@@ -8,9 +8,9 @@ from tempfile import NamedTemporaryFile, TemporaryFile, mkstemp
 from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with, marshal)
 from flask_cors import CORS
 from slugify import slugify
-from wordweaver.app import app
+from wordweaver.config import ENV_CONFIG
 
-fpb = app.config['FOMA_PYTHON_BINDINGS']
+fpb = ENV_CONFIG['FOMA_PYTHON_BINDINGS']
 if fpb:
     from wordweaver.fst.utils.foma_access_python import foma_access_python as foma_access
 else:
@@ -30,7 +30,7 @@ from wordweaver.resources.verb import verb_fields
 
 import itertools
 
-fomabins_dir = os.path.join(app.config['DATA_DIR'], 'fomabins')
+fomabins_dir = os.path.join(os.environ.get('WW_DATA_DIR'), 'fomabins')
 
 
 conjugation_fields = {
@@ -41,10 +41,11 @@ conjugation_fields = {
     'tmp_affix': fields.Nested(affix_fields),
     'pas': fields.Nested(affix_fields)
 }
+  
 
 class ConjugationList(Resource):
     def __init__(self, fp=foma_access(os.path.join(fomabins_dir,
-                               app.config["FST_FILENAME"]))):
+                               ENV_CONFIG["fst_filename"]))):
         print(fp.path_to_model)
         self.parser = reqparse.RequestParser()
         self.fp = fp
@@ -369,7 +370,7 @@ api2.add_resource(
     '/conjugations',
     endpoint='conjugations', 
     resource_class_kwargs={'fp': foma_access(os.path.join(fomabins_dir,
-                           app.config['TEST_FST_FILENAME']))}
+                           ENV_CONFIG['test_fst_filename']))}
 )
 
 api2.add_resource(
@@ -377,5 +378,6 @@ api2.add_resource(
     '/conjugations/<string:verb>',
     endpoint='conjugations/verb', 
     resource_class_kwargs={'fp': foma_access(os.path.join(fomabins_dir,
-                           app.config['TEST_FST_FILENAME']))}
+                           ENV_CONFIG['test_fst_filename']))}
 )
+    

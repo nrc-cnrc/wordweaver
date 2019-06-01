@@ -6,7 +6,12 @@ setup(
     python_requires='>=3.6',
     version=wordweaver.VERSION,
     long_description='WordWeaver',
-    packages=find_packages(),
+    packages=['wordweaver',
+              'wordweaver.buildtools',
+              'wordweaver.static',
+              'wordweaver.fst',
+              'wordweaver.fst.utils',
+              'wordweaver.resources'],
     include_package_data=True,
     zip_safe=False,
     install_requires=['flask', 'flask_restful', 'flask_cors']

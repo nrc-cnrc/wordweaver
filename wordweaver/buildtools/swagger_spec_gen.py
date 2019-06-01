@@ -11,7 +11,7 @@ from wordweaver import static
 from wordweaver.config import BUILD_CONFIG
 from wordweaver.app import app
 
-swagger_dir = os.path.join(os.path.abspath(app.config['data_dir']), 'swagger')
+swagger_dir = os.path.join(os.path.abspath(os.environ.get('WW_DATA_DIR')), 'swagger')
 
 class SwaggerSpecGenerator():
     def __init__(self):

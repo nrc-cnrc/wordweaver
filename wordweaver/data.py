@@ -1,8 +1,7 @@
 import json
 import os
-from wordweaver.app import app
 
-default_path = app.config['DATA_DIR']
+default_path = os.environ.get('WW_DATA_DIR')
 
 with open(os.path.join(default_path, 'api_data', 'affixes.json'), 'r') as affix_file:
     affix_data = json.load(affix_file, encoding='utf-8')

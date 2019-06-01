@@ -72,3 +72,15 @@ class TestFileNotFoundException(Exception):
         self.file_path = path
 
         super(TestFileNotFoundException, self).__init__(msg)
+
+class MisconfiguredEnvironment(Exception):
+    '''
+    Exception rasied for missing ENV variables
+    '''
+    def __init__(self, msg):
+        if msg is None:
+            msg = "Environment variables are misconfigured. Please check the documentation"
+        else:
+            msg = msg
+
+        super(MisconfiguredEnvironment, self).__init__(msg)

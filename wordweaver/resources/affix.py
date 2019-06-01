@@ -6,7 +6,6 @@ Create API Resource for returning all available affixs
 from flask import jsonify, Blueprint, abort
 import json
 from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with, marshal)
-# from flask_apispec import use_kwargs, marshal_with
 from flask_cors import CORS
 from wordweaver.data import affix_data
 from wordweaver.resources import require_appkey
