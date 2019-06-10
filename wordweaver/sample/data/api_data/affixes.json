@@ -1,0 +1,163 @@
+[
+  {
+    "gloss": "habitual",
+    "type": "aspect",
+    "morphemes": [
+      {
+        "value": "s",
+        "position": 4
+      }
+    ],
+    "tag": "habitual"
+  },
+  {
+    "gloss": "perfective",
+    "type": "aspect",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "perf"
+  },
+  {
+    "gloss": "punctual",
+    "type": "aspect",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "punct"
+  },
+  {
+    "gloss": "command",
+    "type": "aspect",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "command"
+  },
+  {
+    "gloss": "stative",
+    "type": "aspect",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "stative"
+  },
+  {
+    "gloss": "future",
+    "type": "tmp_affix",
+    "morphemes": [
+      {
+        "value": "en",
+        "position": 1
+      },
+      {
+        "value": "ake",
+        "position": 4
+      }
+    ],
+    "tag": "fut"
+  },
+  {
+    "gloss": "past",
+    "type": "tmp_affix",
+    "morphemes": [
+      {
+        "value": "wa",
+        "position": 1
+      }
+    ],
+    "tag": "past"
+  },
+  {
+    "gloss": "conditional",
+    "type": "tmp_affix",
+    "morphemes": [
+      {
+        "value": "a",
+        "position": 1
+      }
+    ],
+    "tag": "cond"
+  },
+  {
+    "gloss": "present",
+    "type": "tmp_affix",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "pres"
+  },
+  {
+    "gloss": "duplicative",
+    "type": "prepronominal_prefix",
+    "morphemes": [],
+    "tag": "dup"
+  },
+  {
+    "gloss": "quantitative",
+    "type": "prepronominal_prefix",
+    "morphemes": [],
+    "tag": "quant"
+  },
+  {
+    "gloss": "augmentation",
+    "type": "prepronominal_prefix",
+    "morphemes": [],
+    "tag": "aug"
+  },
+  {
+    "gloss": "tprefix",
+    "type": "prepronominal_prefix",
+    "morphemes": [],
+    "tag": "tpref"
+  },
+  {
+    "gloss": "continuative",
+    "type": "post_aspectual_suffix",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "cont"
+  },
+  {
+    "gloss": "former past",
+    "type": "post_aspectual_suffix",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "fpast"
+  },
+  {
+    "gloss": "progressive",
+    "type": "post_aspectual_suffix",
+    "morphemes": [
+      {
+        "value": "",
+        "position": 1
+      }
+    ],
+    "tag": "progr"
+  }
+
+]

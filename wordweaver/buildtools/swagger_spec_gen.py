@@ -10,8 +10,16 @@ from wordweaver.data import affix_data, pronoun_data, verb_data
 from wordweaver import static
 from wordweaver.config import BUILD_CONFIG
 from wordweaver.app import app
+from wordweaver.log import logger
+from wordweaver import __file__ as ww_file
 
-swagger_dir = os.path.join(os.path.abspath(os.environ.get('WW_DATA_DIR')), 'swagger')
+data_dir = os.environ.get('WW_DATA_DIR')
+
+if not data_dir:
+    logger.warn('WW_DATA_DIR environment variable is not set, using default sample data instead.')
+    data_dir = os.path.join(os.path.dirname(ww_file), 'sample', 'data')
+
+swagger_dir = os.path.join(os.path.abspath(data_dir), 'swagger')
 
 class SwaggerSpecGenerator():
     def __init__(self):

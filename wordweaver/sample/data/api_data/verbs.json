@@ -1,0 +1,122 @@
+[
+    {
+        "display": "kon7neh\u00e1:rons",
+        "eng-3": "",
+        "eng-inf": "",
+        "eng-past": "",
+        "eng-perf": "",
+        "eng-prog": "",
+        "gloss": "beat s.o. in a game",
+        "state_type": "hab",
+        "tag": "7neharon-p",
+        "thematic_relation": "purple"
+    },
+    {
+        "display": "wake'n\u00edhskwas",
+        "eng-3": "runs late",
+        "eng-inf": "run late",
+        "eng-past": "COP run late",
+        "eng-perf": "ran late",
+        "eng-prog": "COP running late",
+        "gloss": "become/run late",
+        "state_type": "other",
+        "tag": "7nihskwen-b",
+        "thematic_relation": "blue"
+    },
+    {
+        "display": "ke'n\u00edkhons",
+        "eng-3": "sews something",
+        "eng-inf": "sew something",
+        "eng-past": "sewed something",
+        "eng-perf": "sewed something",
+        "eng-prog": "sewing something",
+        "gloss": "sew something",
+        "state_type": "other",
+        "tag": "7nikhon-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "kon'nikonhrakw\u00e9n:yes",
+        "eng-3": "convinces someone of something",
+        "eng-inf": "convince someone of something",
+        "eng-past": "convinced someone of something",
+        "eng-perf": "convinced someone of something",
+        "eng-prog": "convincing someone of something",
+        "gloss": "convince someone of something",
+        "state_type": "hab",
+        "tag": "7nikonhrakw-p",
+        "thematic_relation": "purple"
+    },
+    {
+        "display": "wake'nik\u00f2n:rhen's",
+        "eng-3": "forgets something",
+        "eng-inf": "forget something",
+        "eng-past": "forgot something",
+        "eng-perf": "forgotten something",
+        "eng-prog": "forgetting something",
+        "gloss": "forget something",
+        "state_type": "hab",
+        "tag": "7nikonhren7-b",
+        "thematic_relation": "blue"
+    },
+    {
+        "display": "kon'sh\u00e9nnyes",
+        "eng-3": "defeats someone",
+        "eng-inf": "defeat someone",
+        "eng-past": "defeated someone",
+        "eng-perf": "defeated someone",
+        "eng-prog": "defeating someone",
+        "gloss": "defeat someone",
+        "state_type": "hab",
+        "tag": "7shenn-p",
+        "thematic_relation": "purple"
+    },
+    {
+        "display": "\u00edke7sko's",
+        "eng-3": "",
+        "eng-inf": "",
+        "eng-past": "",
+        "eng-perf": "",
+        "eng-prog": "",
+        "gloss": "drown",
+        "state_type": "progr",
+        "tag": "7sko7n-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "ke'sk\u00f3ntha",
+        "eng-3": "roasts something",
+        "eng-inf": "roast something",
+        "eng-past": "roasted something",
+        "eng-perf": "roasted something",
+        "eng-prog": "roasting something",
+        "gloss": "roast, grill something",
+        "state_type": "hab",
+        "tag": "7skont-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "ka's\u00e9nhtha",
+        "eng-3": "lowers something down",
+        "eng-inf": "lower something down",
+        "eng-past": "lowered something",
+        "eng-perf": "lowered something",
+        "eng-prog": "lowering something",
+        "gloss": "lower something down",
+        "state_type": "hab",
+        "tag": "a7sen-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "ka'sw\u00e1htha",
+        "eng-3": "extinguishes a fire",
+        "eng-inf": "extinguish a fire",
+        "eng-past": "extinguished a fire",
+        "eng-perf": "extinguished a fire",
+        "eng-prog": "extinguishing a fire",
+        "gloss": "extinguish a fire, put out a light",
+        "state_type": "hab",
+        "tag": "a7swaht-r",
+        "thematic_relation": "red"
+    }
+]

@@ -13,9 +13,10 @@
 
 <body>
   <app-root></app-root>
-  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/wordweaver-GUI/dist_toy/styles.js"
-    type="text/javascript"></script>
-  <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/wordweaver-GUI/dist_toy/runtime.js"
+  {% for import in gui_imports %}
+  <script nonce="{{ csp_nonce() }}" src="{{import}}" type="text/javascript"></script>
+  {% endfor %}
+  <!-- <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/wordweaver-GUI/dist_toy/runtime.js"
     type="text/javascript"></script>
   <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/wordweaver-GUI/dist_toy/polyfills.js"
     type="text/javascript"></script>
@@ -24,7 +25,7 @@
   <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/wordweaver-GUI/dist_toy/vendor.js"
     type="text/javascript"></script>
   <script nonce="{{ csp_nonce() }}" src="https://roedoejet.github.io/wordweaver-GUI/dist_toy/main.js"
-    type="text/javascript"></script>
+    type="text/javascript"></script> -->
 </body>
 
 </html>

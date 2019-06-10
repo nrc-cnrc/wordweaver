@@ -10,13 +10,6 @@ from wordweaver.resources.affix import affix_api
 from wordweaver.resources.conjugate import conjugation_api, conjugation_api_2
 from wordweaver.config import ENV_CONFIG
 
-config_dir = os.environ.get('WW_CONFIG_DIR')
-data_dir = os.environ.get('WW_DATA_DIR')
-
-if not config_dir or not data_dir:
-    logger.error(f"WW_CONFIG_DIR is set to {config_dir} and WW_DATA_DIR is set to {data_dir}")
-    raise MisconfiguredEnvironment('Sorry, your environment needs to have variables set for the configuration directory (WW_CONFIG_DIR) and the data directory (WW_DATA_DIR) please consult the documentation')
-
 app = Flask(__name__)
 
 class Config(object):
@@ -49,7 +42,7 @@ app.register_blueprint(conjugation_api_2, url_prefix='/api/v2')
 @app.route('/')
 def home():    
     logger.debug("Template rendered successfully")
-    return render_template('web.html')
+    return render_template('web.html', gui_imports=ENV_CONFIG['gui_imports'])
 
 @app.route('/docs')
 def swag():

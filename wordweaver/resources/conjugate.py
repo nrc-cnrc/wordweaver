@@ -30,7 +30,16 @@ from wordweaver.resources.verb import verb_fields
 
 import itertools
 
-fomabins_dir = os.path.join(os.environ.get('WW_DATA_DIR'), 'fomabins')
+from wordweaver.log import logger
+from wordweaver import __file__ as ww_file
+
+data_dir = os.environ.get('WW_DATA_DIR')
+
+if not data_dir:
+    logger.warn('WW_DATA_DIR environment variable is not set, using default sample data instead.')
+    data_dir = os.path.join(os.path.dirname(ww_file), 'sample', 'data')
+
+fomabins_dir = os.path.join(data_dir, 'fomabins')
 
 
 conjugation_fields = {
