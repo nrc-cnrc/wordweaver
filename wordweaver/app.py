@@ -42,7 +42,7 @@ app.register_blueprint(conjugation_api_2, url_prefix='/api/v2')
 @app.route('/')
 def home():    
     logger.debug("Template rendered successfully")
-    return render_template('web.html', gui_imports=ENV_CONFIG['gui_imports'], favicon=ENV_CONFIG['favicon'])
+    return render_template('web.html', gui_imports=ENV_CONFIG['gui_imports'], favicon=ENV_CONFIG['favicon'], title=ENV_CONFIG['title'])
 
 @app.route('/docs')
 def swag():

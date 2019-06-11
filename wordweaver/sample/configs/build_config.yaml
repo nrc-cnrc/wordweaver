@@ -1,8 +1,8 @@
 echart:
   path: "http://localhost:5000/api/v1/{ep}"
-  name: "kawennón:nis"
+  name: "sample_chart"
 filemaker:
-  title: 'Kawennón:nis'
+  title: 'Sample Output'
   docx_tiers:
     - name: main
       sep: ''
