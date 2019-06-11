@@ -4,7 +4,8 @@ HOST: '0.0.0.0'
 PORT: 5000
 THREADED: true
 FOMA_PYTHON_BINDINGS: true
-gui_imports:
+favicon: "https://roedoejet.github.io/wordweaver-GUI/dist_toy/favicon.ico"
+gui_imports: 
   - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/styles.js"
   - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/runtime.js"
   - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/polyfills.js"
