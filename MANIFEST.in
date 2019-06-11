@@ -2,3 +2,7 @@ include wordweaver/sample/configs/*.yaml
 include wordweaver/sample/data/api_data/*.json
 include wordweaver/sample/data/fomabins/*.fomabin
 recursive-include wordweaver/sample/data/swagger *
+include MANIFEST.in
+include requirements.txt
+include wordweaver/templates/*
+recursive-include wordweaver/static/ *
