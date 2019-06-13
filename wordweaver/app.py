@@ -44,10 +44,18 @@ def home():
     logger.debug("Template rendered successfully")
     return render_template('web.html', gui_imports=ENV_CONFIG['gui_imports'], favicon=ENV_CONFIG['favicon'], title=ENV_CONFIG['title'])
 
+@app.route('/<path>')
+def route(path):
+    if path in ['wordmaker', 'tableviewer', 'info', 'about']:
+        logger.debug("Template rendered successfully")
+        return render_template('web.html', gui_imports=ENV_CONFIG['gui_imports'], favicon=ENV_CONFIG['favicon'], title=ENV_CONFIG['title'])
+    else:
+        return page_not_found('404', path)
+
 @app.route('/docs')
 def swag():
     return render_template('swag.html')
     
 @app.errorhandler(404)
-def page_not_found(e):
-    return render_template('web.html'), 404
+def page_not_found(e, path=''):
+    return render_template('404.html', title=ENV_CONFIG['title'], path=path), 404
