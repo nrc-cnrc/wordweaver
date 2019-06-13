@@ -7,12 +7,14 @@ THREADED: true
 FOMA_PYTHON_BINDINGS: true
 favicon: "https://roedoejet.github.io/wordweaver-GUI/dist_toy/favicon.ico"
 gui_imports: 
-  - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/styles.js"
-  - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/runtime.js"
-  - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/polyfills.js"
-  - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/scripts.js"
-  - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/vendor.js"
-  - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/main.js"
+  css: []
+  js:
+    - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/styles.js"
+    - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/runtime.js"
+    - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/polyfills.js"
+    - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/scripts.js"
+    - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/vendor.js"
+    - "https://roedoejet.github.io/wordweaver-GUI/dist_toy/main.js"
 fst_filename: toy-kawe-stressed-markup.fomabin
 test_fst_filename: toy-kawe-stressed-markup.fomabin
 security:
