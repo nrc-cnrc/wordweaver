@@ -68,6 +68,10 @@ class EnglishGenerator():
         ptag = [t for t in tags if t.startswith("Pat")][0]
         verb_type = [t for t in tags if t in self.verb_types][0]
         pronouns = {v:k for k,v in LANG_CONFIG['pronouns'].items()}
+        pat_pronoun = None
+
+
+
         if "Active" in tags:
             if "Command" in tags:
                 pn = [p for p in pd if p['tag'] == pronouns[atag.replace("Agent", "")]][0]
@@ -86,10 +90,16 @@ class EnglishGenerator():
                 subject = self.return_command(pn)
             else:
                 subject = [p for p in pd if p['tag'] == pronouns[atag.replace("Agent", "")]][0]['gloss'] + " "
-                obj = " " + [p for p in pd if p['tag'] == pronouns[ptag.replace("Pat", "")]][0]['obj_gloss'].lower()
+
+            obj = " " + [p for p in pd if p['tag'] == pronouns[ptag.replace("Pat", "")]][0]['obj_gloss'].lower()
+            pat_pronoun = "" + [p for p in pd if p['tag'] == pronouns[ptag.replace("Pat", "")]][0]['obj_gloss'].lower()
+
         
         tags = [t for t in tags if t != atag and t != ptag and t != verb_type]
-        
+
+
+
+
         # get verb
         try:
             vtag = [v for v in tags if v.islower()][0]
@@ -108,6 +118,7 @@ class EnglishGenerator():
                 verb = verb_obj['eng-3']
             else:
                 verb = verb_obj['eng-inf']
+            verb = self.edit_verb(verb_type, verb, ptag, pat_pronoun)
         except IndexError:
             return "Sorry, we don't have an English translation for this yet."
 
@@ -122,11 +133,25 @@ class EnglishGenerator():
         # resolve copulas
         verb = verb.replace("COP", self.return_copula(subject.strip(), tags))
 
-        sentence = self.template.format(subject=subject, stuff=stuff, verb=verb, obj=obj)
+        sentence = self.template.format(subject=subject, stuff=stuff, verb=verb, obj='')
 
         # resolve empty space
         sentence = sentence.replace("  ", " ")
         return sentence
+
+    def edit_verb(self, verb_type, verb_text, ptag, pat_pronoun = None):
+        new_verb_text = verb_text
+        if "Transitive" in verb_type:
+            #replace 'something/someone' or 'someone' with a corresponding patient pronoun
+            new_verb_text = verb_text.replace ('someone/something', pat_pronoun)
+            new_verb_text = new_verb_text.replace('someone', pat_pronoun)
+            #new_verb_text = verb_text.replace('someone/something', '')
+        elif "Active" in verb_type or "Passive" in verb_type:
+            #replace 'something/someone' with 'something'
+            #new_verb_text = verb_text.replace ('someone/something', 'something')
+            pass
+
+        return new_verb_text
 
 if __name__ == '__main__':
     eg = EnglishGenerator()

@@ -118,5 +118,83 @@
         "state_type": "hab",
         "tag": "a7swaht-r",
         "thematic_relation": "red"
+    },
+    {
+        "display": "kkw\u00e9nyes",
+        "eng-3": "COP able",
+        "eng-inf": "COP able",
+        "eng-past": "COP able",
+        "eng-perf": "been able",
+        "eng-prog": "being able",
+        "gloss": "able, being able",
+        "root": "kwenyes",
+        "state_type": "hab",
+        "tag": "kwenyes-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "ken\u00e9nhskwas",
+        "eng-3": "steals something",
+        "eng-inf": "steal something",
+        "eng-past": "stole something",
+        "eng-perf": "stolen something",
+        "eng-prog": "stealing something",
+        "gloss": "steal something",
+        "root": "nenhs",
+        "state_type": "hab",
+        "tag": "nenhs-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "katenhn\u00ed:nons",
+        "eng-3": "sells something",
+        "eng-inf": "sell something",
+        "eng-past": "sold something",
+        "eng-perf": "sold something",
+        "eng-prog": "selling something",
+        "gloss": "sell something",
+        "root": "atenhninon",
+        "state_type": "hab",
+        "tag": "atenhninon-r",
+        "thematic_relation": "red"
+    },
+    {
+        "display": "wakkwenny\u00e9nhstha",
+        "eng-3": "respects someone/something",
+        "eng-inf": "respect someone/something",
+        "eng-past": "respected someone/something",
+        "eng-perf": "respected someone/something",
+        "eng-prog": "respecting someone/something",
+        "gloss": "respect someone/something",
+        "root": "kwennyenhst",
+        "state_type": "hab",
+        "tag": "kwennyenhst-b",
+        "thematic_relation": "blue"
+    },
+    {
+        "display": "konkwenny\u00e9nhstha",
+        "eng-3": "respects someone/something",
+        "eng-inf": "respect someone/something",
+        "eng-past": "respected someone/something",
+        "eng-perf": "respected someone/something",
+        "eng-prog": "respecting someone/something",
+        "gloss": "respect someone/something",
+        "root": "kwennyenhst",
+        "state_type": "hab",
+        "tag": "kwennyenhst-p",
+        "thematic_relation": "purple"
+    },
+    {
+        "display": "kkwenny\u00e9nhstha",
+        "eng-3": "respects someone/something",
+        "eng-inf": "respect someone/something",
+        "eng-past": "respected someone/something",
+        "eng-perf": "respected someone/something",
+        "eng-prog": "respecting someone/something",
+        "gloss": "respect someone/something",
+        "root": "kwennyenhst",
+        "state_type": "hab",
+        "tag": "kwennyenhst-r",
+        "thematic_relation": "red"
     }
 ]
