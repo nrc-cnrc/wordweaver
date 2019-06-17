@@ -1,5 +1,18 @@
 [
     {
+        "display": "kon'n\u00e9harons",
+        "eng-3": "beats someone in the game",
+        "eng-inf": "beat someone in the game",
+        "eng-past": "beat someone in the game",
+        "eng-perf": "beaten someone in the game",
+        "eng-prog": "beating someone in the game",
+        "gloss": "beat s.o. in a game",
+        "root": "'neharon",
+        "state_type": "hab",
+        "tag": "7neharon-p",
+        "thematic_relation": "purple"
+    },
+    {
         "display": "kon7neh\u00e1:rons",
         "eng-3": "",
         "eng-inf": "",
@@ -72,13 +85,14 @@
         "thematic_relation": "purple"
     },
     {
-        "display": "\u00edke7sko's",
-        "eng-3": "",
-        "eng-inf": "",
-        "eng-past": "",
-        "eng-perf": "",
-        "eng-prog": "",
+        "display": "\u00edke'sko's",
+        "eng-3": "drowns",
+        "eng-inf": "drown",
+        "eng-past": "drowned",
+        "eng-perf": "drowned",
+        "eng-prog": "drowning",
         "gloss": "drown",
+        "root": "'sko'n",
         "state_type": "progr",
         "tag": "7sko7n-r",
         "thematic_relation": "red"

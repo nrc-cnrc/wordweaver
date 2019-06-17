@@ -17,6 +17,8 @@ class EnglishGenerator():
         self.sample = "Verb+Passive+AgentSg3Neuter+PatSg3Mal+athonte+Habitual"
         self.first = [pn['gloss'] for pn in pd if pn['tag'].startswith('1')]
         self.third = [pn['gloss'] for pn in pd if pn['tag'].startswith('3-sg')]
+        self.dual = [pn['gloss'] for pn in pd if 'dl' in pn['tag']]
+        self.plural = [pn['gloss'] for pn in pd if 'pl' in pn['tag']]
         self.non_pres = ["Fut", "Cond", "FPast", "Cont"]
         self.past_tags = ["DefPast"]
         self.inf_tags = ["Fut", "Cond", "FPast"]
@@ -29,7 +31,7 @@ class EnglishGenerator():
             tense = 'past'
         else:
             tense = ''
-        if subj in self.first:
+        if subj in self.first and not subj in self.dual:
             if tense == 'past':
                 return "was "
             else:

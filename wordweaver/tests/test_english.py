@@ -67,6 +67,8 @@ class EnglishTest(TestCase):
                          self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+7nikonhrakw-p+Command'))
 
 
+
+
     def test_blue(self):
         self.assertEqual('She will respect someone/something',
                          self.eg.transduce_tags('Verb+Fut+Passive+AgentSg3Neuter+PatSg3Fem+kwennyenhst-b+Punct'))
@@ -78,6 +80,12 @@ class EnglishTest(TestCase):
                          self.eg.transduce_tags('Verb+Fut+Active+AgentSg3Fem+PatSg3Neuter+kwennyenhst-r+Punct'))
         self.assertEqual('Let her respect someone/something',
                          self.eg.transduce_tags('Verb+Active+AgentSg3Fem+PatSg3Neuter+kwennyenhst-r+Command'))
+        # AgentDu31
+        self.assertEqual('S.o and I are respecting someone/something',
+                         self.eg.transduce_tags('Verb+Active+AgentDu31+PatSg3Neuter+kwennyenhst-r+State'))
+
+        self.assertEqual('You and I are respecting someone/something',
+                        self.eg.transduce_tags('Verb+Active+AgentDu21+PatSg3Neuter+kwennyenhst-r+State'))
 
 
     def test_command(self):
