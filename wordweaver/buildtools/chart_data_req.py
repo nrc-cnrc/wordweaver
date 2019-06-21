@@ -90,6 +90,6 @@ class ChartData():
             f.write(json.dumps(ndata))
         
 cd = ChartData()
-# cd.getConjugations()
+cd.getConjugations()
 cd.exportToEcharts()
 
