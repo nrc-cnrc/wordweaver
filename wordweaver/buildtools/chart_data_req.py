@@ -10,7 +10,7 @@ class ChartData():
     def __init__(self):                
         self.PATH = BUILD_CONFIG['echart']['path']
         vres = requests.get(self.PATH.format(ep="verbs"))
-        self.no_of_verbs = len(vres.json())
+        self.no_of_verbs = min(len(vres.json()), 80)
         self.affopts = AFFIX_OPTIONS['AFFIX_OPTIONS']
         self.verbs = verb_data
         self.pronouns = pronoun_data
@@ -37,20 +37,20 @@ class ChartData():
             f.write(jsd)
 
     def returnValue(self, conj):
-        morphemes = [conj['aspect'], conj['root'], conj['pronoun']]
-        
-        for m in conj['post_aspect']:
-            morphemes.append(m)
-        
-        for m in conj['required_affixes']:
-            morphemes.append(m)
+        try:
+            morphemes = [conj['root'], conj['pronoun']]
+        except:
+            breakpoint()
 
-        for m in conj['tmp_affix']:
+        for m in conj['affixes']:
             morphemes.append(m)
-
+        
         morphemes.sort(key=lambda x: x['position'])
 
         return "".join([m['value'] for m in morphemes])
+
+    def returnValueFromTag(self, tag):
+        return requests.get(self.PATH.format(ep='verbs')+f'?tag={tag}')
     
     def createChartData(self, conjs):
         data = []
@@ -67,7 +67,7 @@ class ChartData():
                 p = next(iter([p for p in self.pronouns if p['tag'] == conj['pronoun']['agent']]))['gloss'] + ' > ' + next(iter([p for p in self.pronouns if p['tag'] == conj['pronoun']['patient']]))['obj_gloss']
             val = self.returnValue(conj)
             # newconj = {v: { t: { p: val}}}
-            newconj = {v: {p: {t: val}}}
+            newconj = {vb['gloss']: {p: {t: val}}}
             node = merge(node, newconj)
         
         for verb in node.keys():
@@ -86,7 +86,7 @@ class ChartData():
             conjugations = json.load(f)
         data = self.createChartData(conjugations)
         with open('data.json', 'w') as f:
-            ndata = [{"name": BUILD_CONFIG['echart']['path'], "children": data}]
+            ndata = [{"name": BUILD_CONFIG['echart']['name'], "children": data}]
             f.write(json.dumps(ndata))
         
 cd = ChartData()
