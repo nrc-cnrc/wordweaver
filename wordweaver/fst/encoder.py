@@ -26,7 +26,7 @@ class FstEncoder:
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.setLevel(logging.DEBUG)
         self.template = "".join(INTERFACE_CONFIG['encoding']['template'])
-        self.template_args = OrderedDict({re.sub(re.compile('[\{\}]'), '', k): "" for k in INTERFACE_CONFIG['encoding']['template'] if "{" in k})
+        # self.template_args = 
         self.args = args
         self.all_pronoun_tags = [x['tag'] for x in pronoun_data]
         aff_options = AFFIX_OPTIONS['AFFIX_OPTIONS']
@@ -35,14 +35,14 @@ class FstEncoder:
     def parse_person(self, pn):
         return LANG_CONFIG['pronouns'][pn['tag']]
 
-    def fill_template(self):
+    def fill_template(self, args: OrderedDict):
         variables_pattern = re.compile('(?<=\{)\w+(?=\})')
         template = self.template
         index = 0
         for match in variables_pattern.finditer(template):
             template = re.sub(re.compile('\{' + match.group() + '\}'), '{' + str(index) + '}', template)
             index += 1
-        args_list = [v for v in self.template_args.values()]
+        args_list = [v for v in args.values()]
         return template.format(*args_list)
 
     def return_pronouns(self, verb_type):
@@ -108,29 +108,28 @@ class FstEncoder:
         # tags for FST
         tags = []
 
-        # tags for HTTP response
-        id_tags = []
-
         # for each verb
         for vb in verb:
+            # New OrderedDict representing order of args for template
+            args = OrderedDict({re.sub(re.compile('[\{\}]'), '', k): "" for k in INTERFACE_CONFIG['encoding']['template'] if "{" in k})
             # tag for FST
-            self.template_args['root'] = vb["tag"]
-            verb_root_id_tag = self.template_args['root']
+            args['root'] = vb["tag"]
+            verb_root_id_tag = args['root']
 
             verb_type = vb["thematic_relation"]            
-            self.template_args['verb_type'] = LANG_CONFIG['verb_type'][verb_type]['tag']
+            args['verb_type'] = LANG_CONFIG['verb_type'][verb_type]['tag']
 
             # for each affoption
             for affopt in affoption:
-                # tags for HTTP response **needs +recursive**
+                # tags for HTTP response
                 affopt_id_tag = affopt['tag']
 
                 # tags for FST
                 for aff_type, affixes in LANG_CONFIG['affixes'].items():
-                    self.template_args[aff_type] = ''
+                    args[aff_type] = ''
                     for aff in affopt['affixes']:
                         if aff['type'] == aff_type:
-                            self.template_args[aff_type] = affixes[aff['tag']]['tag']
+                            args[aff_type] = affixes[aff['tag']]['tag']
                 
                 # for each pronoun
                 for pronoun in self.return_pronouns(verb_type):
@@ -138,30 +137,37 @@ class FstEncoder:
                     agent_id_tag = pronoun['agent']['tag']
                     patient_id_tag = pronoun['patient']['tag']
                     # tags for FST
-                    self.template_args['agent'] = LANG_CONFIG['pronoun_role']["agent"] + self.parse_person(pronoun["agent"]) + "+"
-                    self.template_args['patient'] = LANG_CONFIG['pronoun_role']["patient"] + self.parse_person(pronoun["patient"]) + "+"
+                    args['agent'] = LANG_CONFIG['pronoun_role']["agent"] + self.parse_person(pronoun["agent"]) + "+"
+                    args['patient'] = LANG_CONFIG['pronoun_role']["patient"] + self.parse_person(pronoun["patient"]) + "+"
 
-                     # change verb_thematic_relation_tag if aspect is perf TODO: How to put this in config?
-                    if INTERFACE_CONFIG['encoding']['post_processing']:
-                        for process in INTERFACE_CONFIG['encoding']['post_processing']:
-                            conditions = process['conditions']
-                            results = process['results']
-                            conditions_met = [self.template_args[cond['template_arg_key']] == cond['equal_to'] for cond in conditions]
-                            if all(conditions_met):
-                                for result in results:
-                                    if "operation" in result:
-                                        if result['operation'] == 'switch_pros':
-                                            self.template_args['agent'] = LANG_CONFIG['pronoun_role']['agent'] + self.parse_person(pronoun['patient']) + '+'
-                                            self.template_args['patient'] = LANG_CONFIG['pronoun_role']['patient'] + self.parse_person(pronoun['agent']) + '+'
-                                    else:
-                                        self.template_args[result['template_arg_key']] = result['equal_to']
 
-                    filled_template = self.fill_template()
+                    filled_template = self.fill_template(args)
 
                     tags.append({"fst": filled_template,
+                                 "args": args,
                                 "http_args": {"root": verb_root_id_tag,
                                          "agent": agent_id_tag,
                                          "patient": patient_id_tag,
                                          "affopt": affopt_id_tag
                                          }})
+        
+        # Post-process tags based on config file
+        if INTERFACE_CONFIG['encoding']['post_processing']:
+            for process in INTERFACE_CONFIG['encoding']['post_processing']:
+                conditions = process['conditions']
+                results = process['results']
+                for tag in tags:
+                    conditions_met = [tag['args'][cond['template_arg_key']] == cond['equal_to'] for cond in conditions]
+                    if all(conditions_met):
+                        for result in results:
+                            # Do some set operations, like switching pronouns. Any other operations can be declared here
+                            if "operation" in result:
+                                if result['operation'] == 'switch_pros':
+                                    tag['args']['agent'] = LANG_CONFIG['pronoun_role']['agent'] + self.parse_person(tag['args']['patient']) + '+'
+                                    tag['args']['patient'] = LANG_CONFIG['pronoun_role']['patient'] + self.parse_person(tag['args']['agent']) + '+'
+                            # Otherwise just do a basic replace of the input to output
+                            else:
+                                tag['args'][result['template_arg_key']] = result['equal_to']
+                            # re-calculate the template
+                            tag['fst'] = self.fill_template(tag['args'])
         return tags
