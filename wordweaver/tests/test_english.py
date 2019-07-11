@@ -66,6 +66,13 @@ class EnglishTest(TestCase):
         self.assertEqual('Let me convince him of something',
                          self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+7nikonhrakw-p+Command'))
 
+        #see someone/something
+        self.assertEqual('I will see him',
+                         self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg3Mal+ken-p+Punct'))
+
+        #make something for someone
+        self.assertEqual('I will make something for him',
+                         self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg3Mal+onnyenni-p+Punct'))
 
 
 

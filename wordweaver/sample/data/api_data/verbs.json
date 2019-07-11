@@ -210,5 +210,31 @@
         "state_type": "hab",
         "tag": "kwennyenhst-r",
         "thematic_relation": "red"
+    },
+    {
+        "display": "konyonny\u00e9n:nis",
+        "eng-3": "makes something for someone",
+        "eng-inf": "make something for someone",
+        "eng-past": "made something for someone",
+        "eng-perf": "made something for someone",
+        "eng-prog": "making something for someone",
+        "gloss": "make something for  someone",
+        "root": "onnyenni",
+        "state_type": "hab",
+        "tag": "onnyenni-p",
+        "thematic_relation": "purple"
+    },
+    {
+        "display": "k\u00f3n:kens",
+        "eng-3": "sees someone/something",
+        "eng-inf": "see someone/something",
+        "eng-past": "saw someone/something",
+        "eng-perf": "seen someone/something",
+        "eng-prog": "seeing someone/something",
+        "gloss": "see  someone/something",
+        "root": "ken",
+        "state_type": "hab",
+        "tag": "ken-p",
+        "thematic_relation": "purple"
     }
 ]
