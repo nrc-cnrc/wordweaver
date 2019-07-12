@@ -1,11 +1,25 @@
 # -*- coding: utf-8 -*-
+from wordweaver import __file__ as ww_file
+from wordweaver.log import logger
+import itertools
+from wordweaver.resources.verb import verb_fields
+from wordweaver.resources.pronoun import pronoun_fields
+from wordweaver.resources.affix import affix_fields
+from wordweaver.buildtools.file_maker import DocxMaker, LatexMaker
+from wordweaver.data import verb_data
+from wordweaver.resources import require_appkey
+from wordweaver.fst.english_generator import EnglishGenerator
+from wordweaver.exceptions import FomaInputException
+from wordweaver.fst.encoder import FstEncoder
+from wordweaver.fst.decoder import FstDecoder
 from flask import jsonify, Blueprint, abort, send_file, send_from_directory, after_this_request
 import json
 import os.path
 import re
 from tempfile import NamedTemporaryFile, TemporaryFile, mkstemp
 
-from flask_restful import (Resource, Api, reqparse, inputs, fields, url_for, marshal_with, marshal)
+from flask_restful import (Resource, Api, reqparse,
+                           inputs, fields, url_for, marshal_with, marshal)
 from flask_cors import CORS
 from slugify import slugify
 from wordweaver.config import ENV_CONFIG
@@ -15,28 +29,13 @@ if fpb:
     from wordweaver.fst.utils.foma_access_python import foma_access_python as foma_access
 else:
     from wordweaver.fst.utils.foma_access import foma_access
-    
-from wordweaver.fst.decoder import FstDecoder
-from wordweaver.fst.encoder import FstEncoder
-from wordweaver.exceptions import FomaInputException
-from wordweaver.fst.english_generator import EnglishGenerator
-from wordweaver.resources import require_appkey
-from wordweaver.data import verb_data
-from wordweaver.buildtools.file_maker import DocxMaker, LatexMaker
 
-from wordweaver.resources.affix import affix_fields
-from wordweaver.resources.pronoun import pronoun_fields
-from wordweaver.resources.verb import verb_fields
-
-import itertools
-
-from wordweaver.log import logger
-from wordweaver import __file__ as ww_file
 
 data_dir = os.environ.get('WW_DATA_DIR')
 
 if not data_dir:
-    logger.warn('WW_DATA_DIR environment variable is not set, using default sample data instead.')
+    logger.warn(
+        'WW_DATA_DIR environment variable is not set, using default sample data instead.')
     data_dir = os.path.join(os.path.dirname(ww_file), 'sample', 'data')
 
 fomabins_dir = os.path.join(data_dir, 'fomabins')
@@ -50,11 +49,11 @@ conjugation_fields = {
     'tmp_affix': fields.Nested(affix_fields),
     'pas': fields.Nested(affix_fields)
 }
-  
+
 
 class ConjugationList(Resource):
     def __init__(self, fp=foma_access(os.path.join(fomabins_dir,
-                               ENV_CONFIG["fst_filename"]))):
+                                                   ENV_CONFIG["fst_filename"]))):
         print(fp.path_to_model)
         self.parser = reqparse.RequestParser()
         self.fp = fp
@@ -86,7 +85,7 @@ class ConjugationList(Resource):
 
         self.parser.add_argument(
             'offset', dest='offset',
-            type=int, location='args', default=0, 
+            type=int, location='args', default=0,
             required=False, help='An offset for conjugations with default of 0 - maximum range between offset and limit is 100',
         )
 
@@ -125,7 +124,7 @@ class ConjugationList(Resource):
             type=bool, location='args', default=False,
             required=False, help='Return latex file.',
         )
-  
+
     def mergeTagsAndValues(self, tags, values):
         new_values = []
         for counter, value in enumerate(values):
@@ -150,23 +149,28 @@ class ConjugationList(Resource):
         args = self.parser.parse_args()
         conj_range = args['limit'] - args['offset']
         if conj_range > 10:
-            abort(403, description = "Range between offset and limit {} exceeds maximum allowed. Please contact developers if you require more access.".format(conj_range))
-  
+            abort(403, description="Range between offset and limit {} exceeds maximum allowed. Please contact developers if you require more access.".format(conj_range))
+
         # Turn args into tags
         tag_maker = FstEncoder(args)
         try:
             tags = tag_maker.return_tags()
         except FomaInputException as e:
             print(("Foma Error" + e))
-            abort (400, description = "The FST failed to conjugate. Exception: {}".format(str(e)) )
-       
+            abort(
+                400, description="The FST failed to conjugate. Exception: {}".format(str(e)))
+
         if 'tags' in args and args['tags']:
             # Add index for reference
-            tags = [(i, tags[i][x], tags[i][y]) for i, (x, y) in enumerate(tags)]
+            tags = [
+                {'index': i,
+                 'fst_tag': tags[i][x],
+                 'args': tags[i][y],
+                 'http_args': tags[i][z]} for i, (x, y, z) in enumerate(tags)]
             return tags
 
         eng_translations = [self.eg.transduce_tags(x['fst']) for x in tags]
-        
+
         # Trigger "down" from fst with tags (return verb). foma bindings return generator, so next must be used there.
         fst_tags = [x['fst'] for x in tags]
         markers = []
@@ -178,23 +182,27 @@ class ConjugationList(Resource):
 
         if 'markers' in args and args['markers']:
             # Add index for reference
-            markers = [{'index': i, 'marker': m} for i, m in enumerate(markers)]
+            markers = [{'index': i, 'marker': m}
+                       for i, m in enumerate(markers)]
             return markers
 
         if 'plain' in args and args['plain']:
-            plain = [{'index': i, 'text': self.returnPlain(m)} for i, m in enumerate(markers)]
+            plain = [{'index': i, 'text': self.returnPlain(
+                m)} for i, m in enumerate(markers)]
             return plain
 
          # This is interim and not good. list comprehension to remove ??? and + in markers and corresponding tags. This should make both same length
         filtered_markers = [x != "???" and "+" not in x for x in markers]
         tags = list(itertools.compress(tags, filtered_markers))
         markers = list(itertools.compress(markers, filtered_markers))
-        eng_translations = list(itertools.compress(eng_translations, filtered_markers))
+        eng_translations = list(itertools.compress(
+            eng_translations, filtered_markers))
 
         # return markers
-      
+
         if "???" in markers:
-            abort(400, description="The FST could not conjugate the tag: {} or the marker: {}.".format(tags, markers))
+            abort(400, description="The FST could not conjugate the tag: {} or the marker: {}.".format(
+                tags, markers))
 
         # return markers
         # "Decode" markers into HTTP response
@@ -215,12 +223,12 @@ class ConjugationList(Resource):
             try:
                 document.save(path)
                 return send_file(path,
-                                as_attachment=True,
-                                mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                                attachment_filename='conjugations.docx')
+                                 as_attachment=True,
+                                 mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                 attachment_filename='conjugations.docx')
             finally:
                 os.remove(path)
-            
+
         if "latex" in args and args['latex']:
             lm = LatexMaker(response)
             latex = lm.export_to_bytes()
@@ -231,48 +239,52 @@ class ConjugationList(Resource):
                     tmp.write(latex)
                     tmp.seek(0)
                     return send_file(path,
-                                    as_attachment=True,
-                                    mimetype='text/plain',
-                                    attachment_filename='conjugations.tex')
+                                     as_attachment=True,
+                                     mimetype='text/plain',
+                                     attachment_filename='conjugations.tex')
             finally:
                 os.remove(path)
 
         return response
 
+
 class ConjugationVerbList(ConjugationList):
     def __init__(self, fp):
         print(fp.path_to_model)
         super().__init__(fp)
+
     @require_appkey
     def get(self, root):
         try:
             next(vb for vb in verb_data if vb['tag'] == slugify(root))
         except StopIteration:
             abort(404)
-            
+
         args = self.parser.parse_args()
 
         args['root'] = [root]
         # Turn args into tags
         tag_maker = FstEncoder(args)
-        
+
         try:
             tags = tag_maker.return_tags()
 
         except FomaInputException as e:
             print(("Foma Error" + e))
-            abort (400, description = "The FST failed to conjugate. Exception: {}".format(str(e)) )
-        
+            abort(
+                400, description="The FST failed to conjugate. Exception: {}".format(str(e)))
+
         if 'tags' in args and args['tags']:
             # Add index for reference
-            tags = [(i, tags[i][x], tags[i][y]) for i, (x, y) in enumerate(tags)]
+            tags = [(i, tags[i][x], tags[i][y])
+                    for i, (x, y) in enumerate(tags)]
             return tags
 
         eng_translations = [self.eg.transduce_tags(x['fst']) for x in tags]
 
         # Trigger "down" from fst with tags (return verb). foma bindings return generator, so next must be used there.
         fst_tags = [x['fst'] for x in tags]
-        
+
         markers = []
         for tag in fst_tags:
             try:
@@ -282,26 +294,31 @@ class ConjugationVerbList(ConjugationList):
 
         if 'markers' in args and args['markers']:
             # Add index for reference
-            markers = [{'index': i, 'marker': m} for i, m in enumerate(markers)]
+            markers = [{'index': i, 'marker': m}
+                       for i, m in enumerate(markers)]
             return markers
 
         if 'plain' in args and args['plain']:
-            plain = [{'index': i, 'text': self.returnPlain(m)} for i, m in enumerate(markers)]
+            plain = [{'index': i, 'text': self.returnPlain(
+                m)} for i, m in enumerate(markers)]
             return plain
 
         # This is interim and not good. list comprehension to remove ??? and + in markers and corresponding tags. This should make both same length
         filtered_markers = [x != "???" and "+" not in x for x in markers]
         tags = list(itertools.compress(tags, filtered_markers))
         markers = list(itertools.compress(markers, filtered_markers))
-        eng_translations = list(itertools.compress(eng_translations, filtered_markers))
+        eng_translations = list(itertools.compress(
+            eng_translations, filtered_markers))
 
         if len(tags) != len(markers):
-            abort(500, description="Whoa, something went wrong. The tag and marker lists are not equal in length")
+            abort(
+                500, description="Whoa, something went wrong. The tag and marker lists are not equal in length")
 
         # return markers
 
         if "???" in markers:
-            abort(400, description="The FST could not conjugate the tag: {} or the marker: {}.".format(tags, markers))
+            abort(400, description="The FST could not conjugate the tag: {} or the marker: {}.".format(
+                tags, markers))
 
         response = []
 
@@ -314,7 +331,7 @@ class ConjugationVerbList(ConjugationList):
 
         for counter, entry in enumerate(response):
             entry['translation'] = eng_translations[counter]
-        
+
         if "docx" in args and args['docx']:
             dm = DocxMaker(response)
             document = dm.export()
@@ -322,12 +339,12 @@ class ConjugationVerbList(ConjugationList):
             try:
                 document.save(path)
                 return send_file(path,
-                                as_attachment=True,
-                                mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                                attachment_filename='test.docx')
+                                 as_attachment=True,
+                                 mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                 attachment_filename='test.docx')
             finally:
                 os.remove(path)
-            
+
         if "latex" in args and args['latex']:
             lm = LatexMaker(response)
             latex = lm.export_to_bytes()
@@ -338,15 +355,16 @@ class ConjugationVerbList(ConjugationList):
                     tmp.write(latex)
                     tmp.seek(0)
                     return send_file(path,
-                                    as_attachment=True,
-                                    mimetype='text/plain',
-                                    attachment_filename='test.tex')
+                                     as_attachment=True,
+                                     mimetype='text/plain',
+                                     attachment_filename='test.tex')
             finally:
                 os.remove(path)
 
         return response
 
-## Main API
+# Main API
+
 
 conjugation_api = Blueprint('resources.conjugation', __name__)
 
@@ -366,7 +384,7 @@ api.add_resource(
     endpoint='conjugations/verb'
 )
 
-## Secondary API
+# Secondary API
 
 conjugation_api_2 = Blueprint('resources.conjugation2', __name__)
 
@@ -377,16 +395,15 @@ api2 = Api(conjugation_api_2)
 api2.add_resource(
     ConjugationList,
     '/conjugations',
-    endpoint='conjugations', 
+    endpoint='conjugations',
     resource_class_kwargs={'fp': foma_access(os.path.join(fomabins_dir,
-                           ENV_CONFIG['test_fst_filename']))}
+                                                          ENV_CONFIG['test_fst_filename']))}
 )
 
 api2.add_resource(
     ConjugationVerbList,
     '/conjugations/<string:verb>',
-    endpoint='conjugations/verb', 
+    endpoint='conjugations/verb',
     resource_class_kwargs={'fp': foma_access(os.path.join(fomabins_dir,
-                           ENV_CONFIG['test_fst_filename']))}
+                                                          ENV_CONFIG['test_fst_filename']))}
 )
-    
