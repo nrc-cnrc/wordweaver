@@ -284,10 +284,7 @@ class ConjugationVerbList(ConjugationList):
 
         markers = []
         for tag in fst_tags:
-            try:
-                markers += list(self.fp.down(tag))
-            except IndexError:
-                markers.append("???")
+            markers += list(self.fp.down(tag))
 
         if 'markers' in args and args['markers']:
             # Add index for reference
