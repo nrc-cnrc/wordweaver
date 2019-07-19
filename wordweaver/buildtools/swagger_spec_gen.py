@@ -42,7 +42,7 @@ class SwaggerSpecGenerator():
         self.affopt_tags = sorted(list(set([slugify(x['tag']) for x in aff_options])))
 
         # set urls
-        set_pointer(self.data, '/servers', [{"url": url} for url in BUILD_CONFIG['swagger']['urls']])
+        set_pointer(self.data, '/servers', BUILD_CONFIG['swagger']['urls'])
 
     # set pointers and return new data 
     def setPointers(self):
