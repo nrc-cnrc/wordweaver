@@ -68,6 +68,8 @@ filemaker:
 flask:
   bg_img: 'static/web/assets/img/bg.jpg'
 swagger:
+  urls:
+    - //localhost:5000/api/v1
   pre: "swagger-pre.json"
   post: "swagger.json"
   pointers:

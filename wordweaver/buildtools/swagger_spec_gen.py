@@ -23,16 +23,16 @@ swagger_dir = os.path.join(os.path.abspath(data_dir), 'swagger')
 
 class SwaggerSpecGenerator():
     def __init__(self):
-        self.pre_path = os.path.join(swagger_dir, BUILD_CONFIG['pre'])
-        self.post_path = os.path.join(os.path.dirname(static.__file__), BUILD_CONFIG['post'])
+        self.pre_path = os.path.join(swagger_dir, BUILD_CONFIG['swagger']['pre'])
+        self.post_path = os.path.join(os.path.dirname(static.__file__), BUILD_CONFIG['swagger']['post'])
         with open(self.pre_path, 'r', encoding='utf8') as f:
             self.data = json.load(f)
 
         # define pointers
-        self.vb_pointer = BUILD_CONFIG['pointers']['vb']
-        self.pn_pointer = BUILD_CONFIG['pointers']['pn']
-        self.aff_pointer = BUILD_CONFIG['pointers']['aff']
-        self.affopt_pointer = BUILD_CONFIG['pointers']['ao']
+        self.vb_pointer = BUILD_CONFIG['swagger']['pointers']['vb']
+        self.pn_pointer = BUILD_CONFIG['swagger']['pointers']['pn']
+        self.aff_pointer = BUILD_CONFIG['swagger']['pointers']['aff']
+        self.affopt_pointer = BUILD_CONFIG['swagger']['pointers']['ao']
 
         # define tags
         self.vb_tags = sorted(list(set([slugify(x['tag']) for x in verb_data])))
@@ -40,6 +40,9 @@ class SwaggerSpecGenerator():
         self.aff_tags = sorted(list(set([slugify(x['tag']) for x in affix_data])))
         aff_options = AFFIX_OPTIONS['AFFIX_OPTIONS']
         self.affopt_tags = sorted(list(set([slugify(x['tag']) for x in aff_options])))
+
+        # set urls
+        set_pointer(self.data, '/servers', [{"url": url} for url in BUILD_CONFIG['swagger']['urls']])
 
     # set pointers and return new data 
     def setPointers(self):

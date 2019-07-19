@@ -1,1 +1,876 @@
-{"info": {"version": "1.0.1-oas3", "contact": {"email": "aidan.pine@nrc-cnrc.gc.ca"}, "description": "This is the Kawenno\u0301n:nis API that exposes methods needed for running the Kawenno\u0301n:nis conjugator. If you don\u2019t know what any of this is, you are probably in the wrong place. The API is read-only. Note that example values are randomly generated and should be used to reference type only.", "title": "Kawenno\u0301n:nis API"}, "paths": {"/conjugations": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Conjugation"}, "type": "array"}}}, "description": "successful operation"}, "404": {"description": "Resource not found. check spelling of slug and whether conjugation is grammatical."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"default": 5, "type": "integer"}, "description": "index of upper limit of Verbs to provide conjugations for", "required": false, "name": "limit", "in": "query"}, {"schema": {"default": 0, "type": "integer"}, "description": "index of lower limit of Verbs to provide conjugations for", "required": false, "name": "offset", "in": "query"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Agent", "required": false, "name": "agent", "in": "query"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Patient", "required": false, "name": "patient", "in": "query"}], "tags": ["Conjugations"], "description": "", "summary": "Get all conjugations", "security": [{"APIKeyHeader": []}], "operationId": "getConjugations"}}, "/conjugations/{verbTag}/affoptions/{affoptionTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Conjugation"}, "type": "array"}}}, "description": "successful operation"}, "404": {"description": "Resource not found. check spelling of slug and whether conjugation is grammatical."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/AffOptionTags"}, "required": true, "name": "affoptionTag", "in": "path"}, {"schema": {"$ref": "#/components/schemas/VerbTags"}, "required": true, "name": "verbTag", "in": "path"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Agent", "required": false, "name": "agent", "in": "query"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Patient", "required": false, "name": "patient", "in": "query"}], "tags": ["Conjugations"], "description": "", "summary": "Get conjugations by Affix Option and Verb tags", "security": [{"APIKeyHeader": []}], "operationId": "getConjugationsByAffOptionAndVerbTag"}}, "/affoptions/{affoptionTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/AffixOption"}}}, "description": "successful operation"}, "404": {"description": "The requested resource was not found on the server."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/AffOptionTags"}, "description": "slug ID (tag) of Affix Option to return", "required": true, "name": "affoptionTag", "in": "path"}], "tags": ["Affix Options"], "description": "", "summary": "Get affix option by tag", "security": [{"APIKeyHeader": []}], "operationId": "getAffoptionByTag"}}, "/conjugations/affoptions/{affoptionTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Conjugation"}, "type": "array"}}}, "description": "successful operation"}, "404": {"description": "Resource not found. check spelling of slug and whether conjugation is grammatical."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/AffOptionTags"}, "required": true, "name": "affoptionTag", "in": "path"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Agent", "required": false, "name": "agent", "in": "query"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Patient", "required": false, "name": "patient", "in": "query"}], "tags": ["Conjugations"], "description": "", "summary": "Get conjugations by Affix Option tag", "security": [{"APIKeyHeader": []}], "operationId": "getConjugationsByAffOptionTag"}}, "/conjugations/{verbTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Conjugation"}, "type": "array"}}}, "description": "successful operation"}, "404": {"description": "Resource not found. check spelling of slug and whether conjugation is grammatical."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/VerbTags"}, "description": "slug ID (tag) of Verb", "required": true, "name": "verbTag", "in": "path"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Agent", "required": false, "name": "agent", "in": "query"}, {"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to use as Patient", "required": false, "name": "patient", "in": "query"}], "tags": ["Conjugations"], "description": "", "summary": "Get conjugations by verb", "security": [{"APIKeyHeader": []}], "operationId": "getConjugationsByVerbTag"}}, "/pronouns/{pronounTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Pronoun"}}}, "description": "successful operation"}, "404": {"description": "The requested resource was not found on the server."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/PronounTags"}, "description": "slug ID (tag) of Pronoun to return", "required": true, "name": "pronounTag", "in": "path"}], "tags": ["Pronouns"], "description": "", "summary": "Get pronoun by tag", "operationId": "getPronounByTag"}}, "/verbs": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Verb"}, "type": "array"}}}, "description": "successful operation"}, "403": {"description": "Invalid API key. Please contact the developer."}}, "tags": ["Verbs"], "description": "", "summary": "Get all verbs", "security": [{"APIKeyHeader": []}], "operationId": "getVerbs"}}, "/affoptions": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/AffixOption"}, "type": "array"}}}, "description": "successful operation"}, "403": {"description": "Invalid API key. Please contact the developer."}}, "tags": ["Affix Options"], "description": "", "summary": "Get all affix options", "security": [{"APIKeyHeader": []}], "operationId": "getAffoptions"}}, "/verbs/{verbTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Verb"}}}, "description": "successful operation"}, "404": {"description": "The requested resource was not found on the server."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/VerbTags"}, "description": "slug ID (tag) of Verb to return", "required": true, "name": "verbTag", "in": "path"}], "tags": ["Verbs"], "description": "", "summary": "Get verb by tag", "security": [{"APIKeyHeader": []}], "operationId": "getVerbByTag"}}, "/pronouns": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Pronoun"}, "type": "array"}}}, "description": "successful operation"}, "403": {"description": "Invalid API key. Please contact the developer."}}, "tags": ["Pronouns"], "description": "", "summary": "Get all pronouns", "security": [{"APIKeyHeader": []}], "operationId": "getPronouns"}}, "/affixes/{affixTag}": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/Affix"}}}, "description": "successful operation"}, "404": {"description": "The requested resource was not found on the server."}, "403": {"description": "Invalid API key. Please contact the developer."}}, "parameters": [{"schema": {"$ref": "#/components/schemas/AffixTags"}, "description": "slug ID (tag) of Affix to return", "required": true, "name": "affixTag", "in": "path"}], "tags": ["Affixes"], "description": "", "summary": "Get affix by tag", "security": [{"APIKeyHeader": []}], "operationId": "getAffixByTag"}}, "/affixes": {"get": {"responses": {"200": {"content": {"application/json": {"schema": {"items": {"$ref": "#/components/schemas/Affix"}, "type": "array"}}}, "description": "successful operation"}, "403": {"description": "Invalid API key. Please contact the developer."}}, "tags": ["Affixes"], "description": "", "summary": "Get all affixes", "security": [{"APIKeyHeader": []}], "operationId": "getAffixes"}}}, "tags": [{"name": "Verbs"}, {"name": "Pronouns"}, {"name": "Affixes"}, {"name": "Affix Options"}, {"name": "Conjugations"}], "servers": [{"url": "https://mohawk-api.herokuapp.com/api/v1"}], "components": {"securitySchemes": {"APIKeyHeader": {"type": "apiKey", "name": "X-API-Key", "in": "header"}}, "schemas": {"Pronoun": {"required": ["gender", "gloss", "inclusivity", "number", "role", "obj_gloss", "person", "value", "tag"], "type": "object", "properties": {"inclusivity": {"enum": ["incl", "excl", "''"], "type": "string"}, "gender": {"enum": ["M", "F", "FZ", "N", "''"], "type": "string"}, "gloss": {"type": "string", "example": "She"}, "number": {"enum": ["SG", "DL", "PL"], "type": "string"}, "value": {"type": "string", "example": "wak"}, "obj_gloss": {"type": "string", "example": "Me"}, "person": {"enum": ["1", "2", "3"], "type": "string"}, "tag": {"$ref": "#/components/schemas/PronounTags"}, "role": {"enum": ["agent", "patient", "''"], "type": "string"}, "position": {"type": "integer", "example": 1}}}, "VerbTags": {"enum": ["athonte", "atketsko", "atonhwentsyoni", "atskahon", "atyer", "ehyahrahkwen", "ehyahron", "ekahw", "hsterihen", "hyaton", "i-tenhyot", "itahw", "itehr", "ken", "khonni", "nonhweratons", "nonnyahkw", "on-wehskwen", "onni", "onnyenni", "rohrok", "yer", "yo-ten"], "type": "string"}, "Affix": {"required": ["gloss", "morphemes", "tag", "type"], "type": "object", "properties": {"morphemes": {"items": {"required": ["value", "position"], "type": "object", "properties": {"position": {"type": "integer"}, "value": {"type": "string"}}}, "type": "array"}, "gloss": {"type": "string"}, "tag": {"$ref": "#/components/schemas/AffixTags"}, "type": {"enum": ["preproniminal_prefix", "derivational_suffix", "post_aspectual_suffix", "aspect", "tmp_affix"], "type": "string"}}}, "AffixOption": {"required": ["affixes", "gloss", "tag"], "type": "object", "properties": {"affixes": {"items": {"$ref": "#/components/schemas/Affix"}, "type": "array"}, "gloss": {"type": "string"}, "tag": {"$ref": "#/components/schemas/AffOptionTags"}}}, "AffixTags": {"enum": ["command", "cond", "dup", "fut", "habitual", "past", "perf", "pres", "punct", "quant"], "type": "string"}, "Verb": {"required": ["gloss", "required_affixes", "root", "tag", "thematic_relation"], "type": "object", "properties": {"gloss": {"type": "string", "example": "hear"}, "required_affixes": {"items": {"$ref": "#/components/schemas/Affix"}, "type": "array"}, "tag": {"$ref": "#/components/schemas/VerbTags"}, "thematic_relation": {"items": {"enum": ["red", "blue", "purple"], "type": "string"}, "type": "array"}, "position": {"type": "integer", "example": 0}, "root": {"type": "string", "example": "on'wehskwen"}}}, "Conjugation": {"required": ["affopt", "aspect", "pronoun", "required_affixes", "root", "tmp_affix"], "type": "object", "properties": {"affopt": {"$ref": "#/components/schemas/AffOptionTags"}, "pronoun": {"required": ["agent", "patient", "position", "value"], "type": "object", "properties": {"position": {"type": "integer"}, "patient": {"$ref": "#/components/schemas/PronounTags"}, "value": {"type": "string"}, "agent": {"$ref": "#/components/schemas/PronounTags"}}}, "tmp_affix": {"items": {"required": ["position", "value"], "type": "object", "properties": {"position": {"type": "integer"}, "value": {"type": "string"}}}, "type": "array"}, "required_affixes": {"items": {"$ref": "#/components/schemas/Affix"}, "type": "array"}, "aspect": {"required": ["position", "value"], "type": "object", "properties": {"position": {"type": "integer"}, "value": {"type": "string"}}}, "root": {"required": ["position", "tag", "value"], "type": "object", "properties": {"position": {"type": "integer"}, "tag": {"$ref": "#/components/schemas/VerbTags"}, "value": {"type": "string"}}}}}, "AffOptionTags": {"enum": ["command", "defpast", "habpres", "indef", "perfpres", "punctfut"], "type": "string"}, "PronounTags": {"enum": ["1-dl-excl", "1-dl-incl", "1-pl-excl", "1-pl-incl", "1-sg", "2-dl", "2-pl", "2-sg", "3-dl-f", "3-dl-m", "3-pl-f", "3-pl-m", "3-sg-f", "3-sg-m", "3-sg-n"], "type": "string"}}}, "security": [{"APIKeyHeader": []}], "openapi": "3.0.0"}
+{
+    "openapi": "3.0.0",
+    "servers": [
+        {
+            "url": "//localhost:5000/api/v1"
+        }
+    ],
+    "info": {
+        "description": "This is the WordWeaver API that exposes methods needed for running the WordWeaver UI. If you don\u2019t know what any of this is, you are probably in the wrong place. The API is read-only. Note that example values are randomly generated and should be used to reference type only.",
+        "version": "1.0.1-oas3-multi",
+        "title": "WordWeaver API",
+        "contact": {
+            "email": "aidan.pine@nrc-cnrc.gc.ca"
+        }
+    },
+    "tags": [
+        {
+            "name": "Verbs"
+        },
+        {
+            "name": "Pronouns"
+        },
+        {
+            "name": "Affixes"
+        },
+        {
+            "name": "Affix Options"
+        },
+        {
+            "name": "Conjugations"
+        }
+    ],
+    "security": [
+        {
+            "APIKeyHeader": []
+        }
+    ],
+    "paths": {
+        "/verbs": {
+            "get": {
+                "tags": [
+                    "Verbs"
+                ],
+                "summary": "Get all verbs",
+                "description": "",
+                "operationId": "getVerbs",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Verb"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/verbs/{verbTag}": {
+            "get": {
+                "tags": [
+                    "Verbs"
+                ],
+                "summary": "Get verb by tag",
+                "description": "",
+                "operationId": "getVerbByTag",
+                "parameters": [
+                    {
+                        "name": "verbTag",
+                        "in": "path",
+                        "description": "slug ID (tag) of Verb to return",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/VerbTags"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Verb"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    },
+                    "404": {
+                        "description": "The requested resource was not found on the server."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/pronouns": {
+            "get": {
+                "tags": [
+                    "Pronouns"
+                ],
+                "summary": "Get all pronouns",
+                "description": "",
+                "operationId": "getPronouns",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pronoun"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/pronouns/{pronounTag}": {
+            "get": {
+                "tags": [
+                    "Pronouns"
+                ],
+                "summary": "Get pronoun by tag",
+                "description": "",
+                "operationId": "getPronounByTag",
+                "parameters": [
+                    {
+                        "name": "pronounTag",
+                        "in": "path",
+                        "description": "slug ID (tag) of Pronoun to return",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PronounTags"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Pronoun"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    },
+                    "404": {
+                        "description": "The requested resource was not found on the server."
+                    }
+                }
+            }
+        },
+        "/affixes": {
+            "get": {
+                "tags": [
+                    "Affixes"
+                ],
+                "summary": "Get all affixes",
+                "description": "",
+                "operationId": "getAffixes",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Affix"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/affixes/{affixTag}": {
+            "get": {
+                "tags": [
+                    "Affixes"
+                ],
+                "summary": "Get affix by tag",
+                "description": "",
+                "operationId": "getAffixByTag",
+                "parameters": [
+                    {
+                        "name": "affixTag",
+                        "in": "path",
+                        "description": "slug ID (tag) of Affix to return",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/AffixTags"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Affix"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    },
+                    "404": {
+                        "description": "The requested resource was not found on the server."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/aff-options": {
+            "get": {
+                "tags": [
+                    "Affix Options"
+                ],
+                "summary": "Get all affix options",
+                "description": "",
+                "operationId": "getAffoptions",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AffixOption"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/aff-options/{affoptionTag}": {
+            "get": {
+                "tags": [
+                    "Affix Options"
+                ],
+                "summary": "Get affix option by tag",
+                "description": "",
+                "operationId": "getAffoptionByTag",
+                "parameters": [
+                    {
+                        "name": "affoptionTag",
+                        "in": "path",
+                        "description": "slug ID (tag) of Affix Option to return",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/AffOptionTags"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AffixOption"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    },
+                    "404": {
+                        "description": "The requested resource was not found on the server."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        },
+        "/conjugations": {
+            "get": {
+                "tags": [
+                    "Conjugations"
+                ],
+                "summary": "Get all conjugations",
+                "description": "",
+                "operationId": "getConjugations",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "index of upper limit of Verbs to provide conjugations for",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 5
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "index of lower limit of Verbs to provide conjugations for",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "agent",
+                        "in": "query",
+                        "description": "slug ID (tag) of Pronoun to use as Agent",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/PronounTags"
+                            }
+                        }
+                    },
+                    {
+                        "name": "patient",
+                        "in": "query",
+                        "description": "slug ID (tag) of Pronoun to use as Patient",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/PronounTags"
+                            }
+                        }
+                    },
+                    {
+                        "name": "verb",
+                        "in": "query",
+                        "description": "slug ID (tag) of verb to use",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/VerbTags"
+                            }
+                        }
+                    },
+                    {
+                        "name": "aff-option",
+                        "in": "query",
+                        "description": "slug ID (tag) of affix option to use",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/AffOptionTags"
+                            }
+                        }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "Meant for debugging - returns markers instead of normal response",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "markers",
+                        "in": "query",
+                        "description": "Meant for debugging - returns markers instead of normal response",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "plain",
+                        "in": "query",
+                        "description": "Meant for debugging - returns plain text instead of normal response",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "docx",
+                        "in": "query",
+                        "description": "Returns a docx file of the conjugations as an attachment",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "latex",
+                        "in": "query",
+                        "description": "Returns a formatted tex file of the conjugations as an attachment",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Conjugation"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid API key. Please contact the developer."
+                    },
+                    "404": {
+                        "description": "Resource not found. check spelling of slug and whether conjugation is grammatical."
+                    }
+                },
+                "security": [
+                    {
+                        "APIKeyHeader": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "VerbTags": {
+                "type": "string",
+                "enum": [
+                    "7neharon-p",
+                    "7nihskwen-b",
+                    "7nikhon-r",
+                    "7nikonhrakw-p",
+                    "7nikonhren7-b",
+                    "7shenn-p",
+                    "7sko7n-r",
+                    "7skont-r",
+                    "a7sen-r",
+                    "a7swaht-r",
+                    "atenhninon-r",
+                    "ken-p",
+                    "kwennyenhst-b",
+                    "kwennyenhst-p",
+                    "kwennyenhst-r",
+                    "kwenyes-r",
+                    "nenhs-r",
+                    "onnyenni-p"
+                ]
+            },
+            "PronounTags": {
+                "type": "string",
+                "enum": [
+                    "1-dl-excl",
+                    "1-dl-incl",
+                    "1-pl-excl",
+                    "1-pl-incl",
+                    "1-sg",
+                    "2-dl",
+                    "2-pl",
+                    "2-sg",
+                    "3-dl-f",
+                    "3-dl-m",
+                    "3-pl-f",
+                    "3-pl-m",
+                    "3-sg-f",
+                    "3-sg-m",
+                    "3-sg-n"
+                ]
+            },
+            "AffixTags": {
+                "type": "string",
+                "enum": [
+                    "aug",
+                    "command",
+                    "cond",
+                    "cont",
+                    "dup",
+                    "fpast",
+                    "fut",
+                    "habitual",
+                    "past",
+                    "perf",
+                    "pres",
+                    "progr",
+                    "punct",
+                    "quant",
+                    "stative",
+                    "tpref"
+                ]
+            },
+            "AffOptionTags": {
+                "type": "string",
+                "enum": [
+                    "command",
+                    "defpast",
+                    "habpast",
+                    "habpres",
+                    "indef",
+                    "perfcond",
+                    "perfpres",
+                    "punctfut",
+                    "statepres"
+                ]
+            },
+            "Verb": {
+                "type": "object",
+                "required": [
+                    "gloss",
+                    "required_affixes",
+                    "root",
+                    "tag",
+                    "thematic_relation"
+                ],
+                "properties": {
+                    "gloss": {
+                        "type": "string",
+                        "example": "hear"
+                    },
+                    "root": {
+                        "type": "string",
+                        "example": "on'wehskwen"
+                    },
+                    "required_affixes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Affix"
+                        }
+                    },
+                    "tag": {
+                        "$ref": "#/components/schemas/VerbTags"
+                    },
+                    "thematic_relation": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "red",
+                                "blue",
+                                "purple"
+                            ]
+                        }
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": 0
+                    }
+                }
+            },
+            "Affix": {
+                "type": "object",
+                "required": [
+                    "gloss",
+                    "morphemes",
+                    "tag",
+                    "type"
+                ],
+                "properties": {
+                    "gloss": {
+                        "type": "string"
+                    },
+                    "morphemes": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "value",
+                                "position"
+                            ],
+                            "properties": {
+                                "value": {
+                                    "type": "string"
+                                },
+                                "position": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    },
+                    "tag": {
+                        "$ref": "#/components/schemas/AffixTags"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "preproniminal_prefix",
+                            "derivational_suffix",
+                            "post_aspectual_suffix",
+                            "aspect",
+                            "tmp_affix"
+                        ]
+                    }
+                }
+            },
+            "AffixOption": {
+                "type": "object",
+                "required": [
+                    "affixes",
+                    "gloss",
+                    "tag"
+                ],
+                "properties": {
+                    "affixes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Affix"
+                        }
+                    },
+                    "gloss": {
+                        "type": "string"
+                    },
+                    "tag": {
+                        "$ref": "#/components/schemas/AffOptionTags"
+                    }
+                }
+            },
+            "Pronoun": {
+                "type": "object",
+                "required": [
+                    "gender",
+                    "gloss",
+                    "inclusivity",
+                    "number",
+                    "role",
+                    "obj_gloss",
+                    "person",
+                    "value",
+                    "tag"
+                ],
+                "properties": {
+                    "gender": {
+                        "type": "string",
+                        "enum": [
+                            "M",
+                            "F",
+                            "FZ",
+                            "N",
+                            "''"
+                        ]
+                    },
+                    "gloss": {
+                        "type": "string",
+                        "example": "She"
+                    },
+                    "inclusivity": {
+                        "type": "string",
+                        "enum": [
+                            "incl",
+                            "excl",
+                            "''"
+                        ]
+                    },
+                    "number": {
+                        "type": "string",
+                        "enum": [
+                            "SG",
+                            "DL",
+                            "PL"
+                        ]
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "agent",
+                            "patient",
+                            "''"
+                        ]
+                    },
+                    "obj_gloss": {
+                        "type": "string",
+                        "example": "Me"
+                    },
+                    "person": {
+                        "type": "string",
+                        "enum": [
+                            "1",
+                            "2",
+                            "3"
+                        ]
+                    },
+                    "value": {
+                        "type": "string",
+                        "example": "wak"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tag": {
+                        "$ref": "#/components/schemas/PronounTags"
+                    }
+                }
+            },
+            "Conjugation": {
+                "type": "object",
+                "required": [
+                    "affopt",
+                    "aspect",
+                    "pronoun",
+                    "required_affixes",
+                    "root",
+                    "tmp_affix"
+                ],
+                "properties": {
+                    "affopt": {
+                        "$ref": "#/components/schemas/AffOptionTags"
+                    },
+                    "aspect": {
+                        "type": "object",
+                        "required": [
+                            "position",
+                            "value"
+                        ],
+                        "properties": {
+                            "position": {
+                                "type": "integer"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "pronoun": {
+                        "type": "object",
+                        "required": [
+                            "agent",
+                            "patient",
+                            "position",
+                            "value"
+                        ],
+                        "properties": {
+                            "agent": {
+                                "$ref": "#/components/schemas/PronounTags"
+                            },
+                            "patient": {
+                                "$ref": "#/components/schemas/PronounTags"
+                            },
+                            "position": {
+                                "type": "integer"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required_affixes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Affix"
+                        }
+                    },
+                    "root": {
+                        "type": "object",
+                        "required": [
+                            "position",
+                            "tag",
+                            "value"
+                        ],
+                        "properties": {
+                            "position": {
+                                "type": "integer"
+                            },
+                            "tag": {
+                                "$ref": "#/components/schemas/VerbTags"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "tmp_affix": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "position",
+                                "value"
+                            ],
+                            "properties": {
+                                "position": {
+                                    "type": "integer"
+                                },
+                                "value": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "APIKeyHeader": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Key"
+            }
+        }
+    }
+}
