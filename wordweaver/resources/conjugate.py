@@ -162,6 +162,8 @@ class ConjugationList(Resource):
         for tag in tags:
             # get conjugations from FST
             markers = list(self.foma.down(tag['fst']))
+            if not markers:
+                markers = ['???']
             # translate from the tags
             translation = self.translator.transduce_tags(tag['fst'])
             for m in markers:
