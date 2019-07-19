@@ -397,9 +397,9 @@
             }
           },
           {
-            "name": "verb",
+            "name": "root",
             "in": "query",
-            "description": "slug ID (tag) of verb to use",
+            "description": "slug ID (tag) of verb root to use",
             "required": false,
             "style": "form",
             "explode": true,
