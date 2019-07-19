@@ -209,7 +209,11 @@ class ConjugationList(Resource):
                                      attachment_filename = 'conjugations.tex')
             finally:
                 os.remove(path)
-        return response
+        # don't filter if debugging
+        if ('tags' in args and args['tags']) or ('markers' in args and args['markers']):
+            return response
+        # filter out all malformed responses without values
+        return [r for r in response if 'values' in r]
 
 # Main API
 
