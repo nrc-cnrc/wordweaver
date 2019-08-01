@@ -96,20 +96,21 @@ class FileMaker:
     def createTiers(self, conjugations):
         conjugations_list = []
         for c in conjugations:
-            tiers = {}
-            for tier in BUILD_CONFIG['filemaker']['tier_defs']:
-                if tier['name'] == 'translation':
-                    tiers['translation'] = c['translation']
-                else:
-                    tiers[tier['name']] = self.createTier(c,
-                                                        {'keys': tier['vb']['keys'],
-                                                            'separator': tier['vb']['sep']},
-                                                        {'keys': tier['pn']['keys'],
-                                                            'separator': tier['pn']['sep']},
-                                                        {'keys': tier['aff']['keys'],
-                                                        'separator': tier['aff']['sep']}
-                                                        )    
-            conjugations_list.append(tiers)
+            if c:
+                tiers = {}
+                for tier in BUILD_CONFIG['filemaker']['tier_defs']:
+                    if tier['name'] == 'translation':
+                        tiers['translation'] = c['translation']
+                    else:
+                        tiers[tier['name']] = self.createTier(c['values'],
+                                                            {'keys': tier['vb']['keys'],
+                                                                'separator': tier['vb']['sep']},
+                                                            {'keys': tier['pn']['keys'],
+                                                                'separator': tier['pn']['sep']},
+                                                            {'keys': tier['aff']['keys'],
+                                                            'separator': tier['aff']['sep']}
+                                                            )    
+                conjugations_list.append(tiers)
         return conjugations_list
 
     def appendTier(self, tier, sep):
