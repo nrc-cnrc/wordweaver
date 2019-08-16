@@ -3,6 +3,7 @@ from copy import deepcopy
 from collections import OrderedDict
 from wordweaver.data import pronoun_data, verb_data
 import re
+from wordweaver.log import logger
 from wordweaver.resources.affix import AFFIX_OPTIONS
 
 from wordweaver.resources.pronoun import PnOptions
@@ -91,6 +92,30 @@ class FstEncoder:
 
         return pronouns
 
+    def conditions_met(self, args, condition) -> bool:
+        ''' A method for checking whether a particular post-processing rule should be applied.
+            A condition consists of a key labelled "template_arg_key" and one of the following operations:
+            - equal_to
+            - starts_with
+            - ends_with
+            - contains
+            - regex_contains
+        '''
+        to_check = args[condition['template_arg_key']]
+        if 'equal_to' in condition:
+            return to_check == condition['equal_to']
+        if 'starts_with' in condition:
+            return to_check.startswith(condition['starts_with'])
+        if 'ends_with' in condition:
+            return to_check.endswith(condition['ends_with'])
+        if 'contains' in condition:
+            return condition['contains'] in to_check
+        if 'regex_contains' in condition:
+            contains = re.compile(condition['contains'])
+            return bool(re.search(contains, to_check))
+        logger.info('A post-processing condition was provided to the encoder that had an unrecognized operation.')
+        return False
+
     def return_tags(self):
         """
         A method for the conjugations endpoint.
@@ -171,7 +196,7 @@ class FstEncoder:
                 # print(conditions)
                 for tag in tags:
                     conditions_met = [
-                        tag['args'][cond['template_arg_key']] == cond['equal_to'] for cond in conditions]
+                        self.conditions_met(tag['args'], cond) for cond in conditions]
                     if all(conditions_met):
                         for result in results:
                             # Do some set operations, like switching pronouns. Any other operations can be declared here
