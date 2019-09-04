@@ -81,6 +81,8 @@ class EnglishTest(TestCase):
                          self.eg.transduce_tags('Verb+Fut+Passive+AgentSg3Neuter+PatSg3Fem+kwennyenhst-b+Punct'))
         self.assertEqual('Let her respect someone/something',
                          self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg3Fem+kwennyenhst-b+Command'))
+        self.assertEqual('(You) get angry',
+                         self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg2+na7khwen-b+Command'))
 
     def test_red(self):
         self.assertEqual('She will respect someone/something',
@@ -98,3 +100,15 @@ class EnglishTest(TestCase):
     def test_command(self):
         self.assertEqual(self.eg.transduce_tags('Verb+Active+AgentSg2+PatSg3Neuter+atenhninon-r+Command'), '(You) sell something')
         self.assertEqual(self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+atenhninon-r+Command'), 'Let me sell something')
+
+    def test_stative_pres_regular(self):
+        self.assertEqual('I am respecting him',
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+kwennyenhst-p+State'))
+        self.assertEqual('I am stealing something',
+                         self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+nenhs-r+State'))
+
+
+
+    def test_stative_pres_irregular(self):
+        self.assertEqual('I am angry',
+                         self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg1+na7khwen-b+State'))

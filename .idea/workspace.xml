@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="649b1b1b-03a9-4c15-9f13-df6c210e38c2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wordweaver/fst/english_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/wordweaver/fst/english_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wordweaver/sample/data/api_data/verbs.json" beforeDir="false" afterPath="$PROJECT_DIR$/wordweaver/sample/data/api_data/verbs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wordweaver/tests/test_english.py" beforeDir="false" afterPath="$PROJECT_DIR$/wordweaver/tests/test_english.py" afterDir="false" />
     </list>
@@ -13,18 +14,28 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/wordweaver$pytest_in_test_english_py.coverage" NAME="pytest in test_english.py Coverage Results" MODIFIED="1562278185160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/wordweaver/tests" />
+    <SUITE FILE_PATH="coverage/wordweaver$Unittests_for_test_english_EnglishTest.coverage" NAME="Unittests for test_english.EnglishTest Coverage Results" MODIFIED="1567640949004" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/wordweaver/tests" />
+    <SUITE FILE_PATH="coverage/wordweaver$pytest_in_test_english_py.coverage" NAME="pytest in test_english.py Coverage Results" MODIFIED="1567639610339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/wordweaver/tests" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wordweaver/fst/english_generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-439">
-              <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+            <state relative-caret-position="261">
+              <caret line="116" selection-start-line="116" selection-end-line="116" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/lang_config.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
             </state>
           </provider>
         </entry>
@@ -52,29 +63,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wordweaver/sample/data/api_data/verbs.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="223" column="26" selection-start-line="223" selection-start-column="16" selection-end-line="223" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wordweaver/tests/test_english.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="74" column="98" selection-start-line="74" selection-start-column="98" selection-end-line="74" selection-end-column="98" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2149">
+              <caret line="293" column="23" selection-start-line="293" selection-start-column="16" selection-end-line="293" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda/envs/python3-7/lib/python3.7/unittest/case.py">
+        <entry file="file://$PROJECT_DIR$/wordweaver/tests/test_english.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8955">
-              <caret line="610" selection-start-line="610" selection-end-line="610" />
+            <state relative-caret-position="537">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,6 +90,17 @@
       <find>atag</find>
       <find>S.o</find>
       <find>pn</find>
+      <find>kwennyenhst-r</find>
+      <find>ken</find>
+      <find>atenhninon-r</find>
+      <find>7nikonhrakw-p</find>
+      <find>respect</find>
+      <find>kwennyenhst-p</find>
+      <find>She will respect someone/something</find>
+      <find>kwenyes-r</find>
+      <find>nenhs-r</find>
+      <find>State</find>
+      <find>I am stealing something</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -102,17 +115,16 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="113" />
-    <option name="y" value="206" />
-    <option name="width" value="2560" />
-    <option name="height" value="841" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,7 +141,27 @@
               <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
               <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
               <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="fst" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="fst" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
               <item name="sample" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="sample" type="462c0819:PsiDirectoryNode" />
+              <item name="configs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
@@ -146,16 +178,41 @@
               <item name="data" type="462c0819:PsiDirectoryNode" />
               <item name="api_data" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="test_english.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="test_english.py" type="8704e2dd:PyFileNode" />
+              <item name="EnglishTest" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="wordweaver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="wordweaver" type="462c0819:PsiDirectoryNode" />
+              <item name="wordweaver.egg-info" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/anaconda/envs/python2/bin/python2.7" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -179,7 +236,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in test_english.py">
+  <component name="RunManager" selected="Python tests.Unittests for test_english.EnglishTest">
     <configuration name="wordweaver" type="Python.FlaskServer" factoryName="Flask server">
       <module name="wordweaver" />
       <option name="target" value="$PROJECT_DIR$/wordweaver/app.py" />
@@ -193,6 +250,21 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_english.EnglishTest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="wordweaver" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/wordweaver/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_english.EnglishTest&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="pytest in test_english.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
@@ -213,6 +285,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Unittests for test_english.EnglishTest" />
         <item itemvalue="Python tests.pytest in test_english.py" />
       </list>
     </recent_temporary>
@@ -230,55 +303,56 @@
       <workItem from="1560549848797" duration="3280000" />
       <workItem from="1560793406340" duration="6834000" />
       <workItem from="1562273597980" duration="1415000" />
+      <workItem from="1562706992127" duration="1353000" />
+      <workItem from="1567637525536" duration="3589000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 34m 35s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 27m 55s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 41m 24s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 34m 30s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 41m 44s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 36m 06s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 43m 42s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 36m 47s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 43m 44s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 37m 50s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 45m 03s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 38m 40s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.06.17 at 13h 45m 28s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 40m 43s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.07.04 at 15h 07m 58s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 43m 59s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.07.04 at 15h 08m 48s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 45m 03s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_english_py - 2019.07.04 at 15h 09m 45s.xml">
-      <configuration name="pytest in test_english.py" configurationId="tests" />
+    <history-entry file="Unittests_for_test_english_EnglishTest - 2019.09.04 at 16h 47m 07s.xml">
+      <configuration name="Unittests for test_english.EnglishTest" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11529000" />
+    <option name="totallyTimeSpent" value="16471000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="113" y="206" width="2560" height="841" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11605723" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21268657" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4352617" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.27023014" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32218844" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.29483283" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -313,30 +387,14 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wordweaver/fst/english_generator.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wordweaver/fst/english_generator.py</url>
-          <line>33</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/wordweaver/tests/test_english.py</url>
+          <line>112</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/build_config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-386" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/env_config.yaml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/lang_config.yaml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/wordweaver/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -430,36 +488,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/fst/utils/abstract_fst_access.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/fst/utils/foma_access_python.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/fst/utils/foma_access.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$USER_HOME$/anaconda/envs/python3-7/lib/python3.7/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8955">
+        <state relative-caret-position="907">
           <caret line="610" selection-start-line="610" selection-end-line="610" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wordweaver/fst/english_generator.py">
+    <entry file="file://$PROJECT_DIR$/run_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-439">
-          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        <state relative-caret-position="90">
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/build_config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-722" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/interface_config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/lang_config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/sample/configs/env_config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wordweaver/sample/data/api_data/verbs.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="223" column="26" selection-start-line="223" selection-start-column="16" selection-end-line="223" selection-end-column="26" />
+        <state relative-caret-position="2149">
+          <caret line="293" column="23" selection-start-line="293" selection-start-column="16" selection-end-line="293" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wordweaver/tests/test_english.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="74" column="98" selection-start-line="74" selection-start-column="98" selection-end-line="74" selection-end-column="98" />
+        <state relative-caret-position="537">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wordweaver/fst/english_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="116" selection-start-line="116" selection-end-line="116" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
