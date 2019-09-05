@@ -2,7 +2,6 @@
 
 from tempfile import mkstemp
 import os.path
-import re
 
 from flask import Blueprint, abort, send_file
 from flask_restful import (Resource, Api, reqparse, fields)
@@ -11,6 +10,7 @@ from flask_cors import CORS
 from wordweaver import __file__ as ww_file
 from wordweaver.log import logger
 from wordweaver.resources.verb import verb_fields
+from wordweaver.resources.utils import return_plain
 from wordweaver.resources.pronoun import pronoun_fields
 from wordweaver.resources.affix import affix_fields
 from wordweaver.buildtools.file_maker import DocxMaker, LatexMaker
@@ -121,22 +121,16 @@ class ConjugationList(Resource):
             required=False, help='Return latex file.',
         )
 
-    def markerToValues(self, marker):
+    def marker_to_values(self, marker):
         decoder = FstDecoder(marker)
         return decoder.returnValuesFromMarkers()
 
-    def mergeTagAndValues(self, tag, value):
+    def merge_tag_and_values(self, tag, value):
         value['root']['tag'] = tag['root']
         value['pronoun']['agent'] = tag['agent']
         value['pronoun']['patient'] = tag['patient']
         value['affopt'] = tag['affopt']
         return value
-
-    def returnPlain(self, marker, sep=''):
-        vals_pattern = re.compile(r"\^[A-Z][\w\-\']*\^")
-        values = re.split(vals_pattern, marker)
-        new_value = [x for x in values if x]
-        return sep.join(new_value)
 
     @require_appkey
     def get(self):
@@ -170,13 +164,13 @@ class ConjugationList(Resource):
                 conjugation = {}
                 if m != '???' and '+' not in m:
                     conjugation["translation"] = translation
-                    conjugation["values"] = self.mergeTagAndValues(tag['http_args'], self.markerToValues(m))
+                    conjugation["values"] = self.merge_tag_and_values(tag['http_args'], self.marker_to_values(m))
                 if 'tags' in args and args['tags']:
                     conjugation['tag'] = tag
                 if 'markers' in args and args['markers']:
                     conjugation['marker'] = m
                 if 'plain' in args and args['plain']:
-                    conjugation['plain_text'] = self.returnPlain(m)
+                    conjugation['plain_text'] = return_plain(m)
                 response.append(conjugation)
 
         # If you want to build a docx, build and return
