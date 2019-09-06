@@ -7,20 +7,6 @@ class EnglishTest(TestCase):
     def setUp(self):
         self.eg = EnglishGenerator()
 
-        # // {
-        #    // "display": "kkwenny\u00e9nhstha",
-        # // "eng-3": "respects someone/something",
-        # // "eng-inf": "respect someone/something",
-        # // "eng-past": "respected someone/something",
-        # // "eng-perf": "respected someone/something",
-        # // "eng-prog": "respecting someone/something",
-        # // "gloss": "respect someone/something",
-        # // "root": "kwennyenhst",
-        # // "state_type": "hab",
-        # // "tag": "kwenyenhst-r",
-        # // "thematic_relation": "red"
-        #                         //},
-
     def test_copula(self):
         '''Make sure copulas are working with pronouns
         '''
@@ -134,3 +120,7 @@ class EnglishTest(TestCase):
         # a transitive verb
         self.assertEqual('I am cheating him',
                          self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+7nikonhrha7ten-p+State'))
+
+    def test_progressive(self):
+        self.assertEqual('I am getting angry', self.eg.transduce_tags(
+            'Verb+Passive+AgentSg3Neuter+PatSg1+na7khwen-b+Perf+Progr'))

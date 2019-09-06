@@ -109,7 +109,7 @@ class EnglishGenerator():
             if "Cont" in tags:
                 verb = verb_obj['eng-prog']
             elif ("Progr" in tags and "Perf" in tags) or "Progr" in tags or "State" in tags:
-                if "State":
+                if "State" in tags:
                     if "Perf" not in tags:
                         #this is Stative present
                         if 'stative-pres-trans' in verb_obj.keys() and verb_obj['stative-pres-trans'].strip() != '':
@@ -133,6 +133,8 @@ class EnglishGenerator():
                 else:
                     #this is not a Stative form
                     verb = self.return_copula(subject.strip(), tags) + verb_obj['eng-prog']
+            elif ("Progr" in tags and "Perf" in tags) or "Progr" in tags:
+                verb = self.return_copula(subject.strip(), tags) + verb_obj['eng-prog']
             elif "Perf" in tags and not any((x in self.non_pres for x in tags)):
                 verb = self.return_have(subject.strip()) + verb_obj['eng-perf']
             elif "Perf" in tags:
