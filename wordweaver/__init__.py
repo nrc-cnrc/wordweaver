@@ -1,3 +1,3 @@
 import os
  
-VERSION = '0.0.29'
+VERSION = '0.0.30'
