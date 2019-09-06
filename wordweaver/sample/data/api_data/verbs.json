@@ -114,8 +114,8 @@
         "gloss": "cheat someone",
         "root": "'nikonhrha'ten",
         "state_type": "perf",
-        "stative-perf-trans": "have cheated someone",
-        "stative-pres-trans": "cheating someone",
+        "stative-perf-trans": "cheated someone",
+        "stative-pres-trans": "COP cheating someone",
         "tag": "7nikonhrha7ten-p",
         "thematic_relation": "purple"
     },
@@ -144,8 +144,8 @@
         "gloss": "become mature (mentally)",
         "root": "'nikonhroht",
         "state_type": "perf",
-        "stative-perf-trans": "have become mature (mentally)",
-        "stative-pres-trans": "be mature (mentally)",
+        "stative-perf-trans": "become mature (mentally)",
+        "stative-pres-trans": "COP mature (mentally)",
         "tag": "7nikonhroht-b",
         "thematic_relation": "blue"
     },
@@ -293,5 +293,20 @@
         "state_type": "hab",
         "tag": "nenhs-r",
         "thematic_relation": "red"
+    },
+    {
+        "display": "waketsi'n\u00f3nhtara's",
+        "eng-3": "gets lice",
+        "eng-inf": "get lice",
+        "eng-past": "got lice",
+        "eng-perf": "gotten lice",
+        "eng-prog": "getting lice",
+        "gloss": "get lice",
+        "root": "tsi'nonhtara'n",
+        "state_type": "other",
+        "stative-perf-trans": "gotten lice",
+        "stative-pres-trans": "have lice",
+        "tag": "tsi7nonhtara7n-b",
+        "thematic_relation": "blue"
     }
 ]

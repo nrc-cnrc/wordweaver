@@ -114,14 +114,20 @@ class EnglishGenerator():
                         #this is Stative present
                         if 'stative-pres-trans' in verb_obj.keys() and verb_obj['stative-pres-trans'].strip() != '':
                             #the translation of this Stative present is irregular
-                            verb = self.return_copula(subject.strip(), tags) + verb_obj['stative-pres-trans']
+                            #verb = self.return_copula(subject.strip(), tags) + verb_obj['stative-pres-trans']
+                            state_form = verb_obj['stative-pres-trans']
+                            if 'COP' in state_form:
+                                state_form = state_form.replace('COP', '')
+                                verb = self.return_copula(subject.strip(), tags) + state_form
+                            else:
+                                verb = verb_obj['stative-pres-trans']
                         else:
                             verb = self.return_copula(subject.strip(), tags) + verb_obj['eng-prog']
                     else:
                         #this is Stative Perfective
                         if 'stative-perf-trans' in verb_obj.keys() and verb_obj['stative-perf-trans'].strip() != '':
-                            # the translation of this Stative Perfective is irregular
-                            verb = self.return_have(subject.strip()) + + verb_obj['stative-perf-trans']
+                            #the stative perfect form is an irregular one
+                            self.return_have(subject.strip()) + verb_obj['stative-perf-trans']
                         else:
                             self.return_have(subject.strip()) + verb_obj['eng-perf']
                 else:

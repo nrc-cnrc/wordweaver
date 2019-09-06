@@ -112,3 +112,11 @@ class EnglishTest(TestCase):
     def test_stative_pres_irregular(self):
         self.assertEqual('I am angry',
                          self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg1+na7khwen-b+State'))
+
+        #this is a non-copular construction
+        self.assertEqual('I have lice',
+                         self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg1+tsi7nonhtara7n-b+State'))
+
+        # a transitive verb
+        self.assertEqual('I am cheating him',
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+7nikonhrha7ten-p+State'))
