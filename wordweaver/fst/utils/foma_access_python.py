@@ -66,6 +66,13 @@ class foma_access_python (abstract_fst_access):
         res = fst.apply_down(down_string)
         return res
 
+    def lower_words(self):
+        """ Return all lower words
+        """
+        fst = self.get_FST()
+        res = fst.lowerwords()
+        return res
+
     def execute_foma_command(self, foma_command):
         """
         Uninmplemented method for compatibility with foma_access

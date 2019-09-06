@@ -56,6 +56,9 @@ class ChartData():
         data = []
         node = {}
         for conj in conjs:
+            # breakpoint()
+            print(conj)
+            conj = conj['values']
             v = conj['root']['tag']
             t = next(iter([a for a in self.affopts if a['tag'] == conj['affopt']]))['gloss']
             vb = next(iter([verb for verb in self.verbs if verb['tag'] == v]))

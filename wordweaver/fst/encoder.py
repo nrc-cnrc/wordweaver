@@ -1,9 +1,9 @@
 from flask import abort
-
+from copy import deepcopy
 from collections import OrderedDict
-from wordweaver.data import affix_data, pronoun_data, verb_data
+from wordweaver.data import pronoun_data, verb_data
 import re
-from wordweaver.exceptions import FomaInputException
+from wordweaver.log import logger
 from wordweaver.resources.affix import AFFIX_OPTIONS
 
 from wordweaver.resources.pronoun import PnOptions
@@ -11,6 +11,7 @@ from wordweaver.resources.pronoun import PnOptions
 from wordweaver.config import INTERFACE_CONFIG, LANG_CONFIG
 
 import logging
+
 
 class FstEncoder:
     """
@@ -26,23 +27,24 @@ class FstEncoder:
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.setLevel(logging.DEBUG)
         self.template = "".join(INTERFACE_CONFIG['encoding']['template'])
-        self.template_args = OrderedDict({re.sub(re.compile('[\{\}]'), '', k): "" for k in INTERFACE_CONFIG['encoding']['template'] if "{" in k})
+        # self.template_args =
         self.args = args
         self.all_pronoun_tags = [x['tag'] for x in pronoun_data]
         aff_options = AFFIX_OPTIONS['AFFIX_OPTIONS']
         self.AFF_OPTIONS = aff_options
 
-    def parse_person(self, pn):
-        return LANG_CONFIG['pronouns'][pn['tag']]
+    def parse_person(self, pn_tag):
+        return LANG_CONFIG['pronouns'][pn_tag]
 
-    def fill_template(self):
+    def fill_template(self, args: OrderedDict):
         variables_pattern = re.compile('(?<=\{)\w+(?=\})')
         template = self.template
         index = 0
         for match in variables_pattern.finditer(template):
-            template = re.sub(re.compile('\{' + match.group() + '\}'), '{' + str(index) + '}', template)
+            template = re.sub(re.compile(
+                '\{' + match.group() + '\}'), '{' + str(index) + '}', template)
             index += 1
-        args_list = [v for v in self.template_args.values()]
+        args_list = [v for v in args.values()]
         return template.format(*args_list)
 
     def return_pronouns(self, verb_type):
@@ -61,28 +63,58 @@ class FstEncoder:
             pronouns = pnopts.transPros()
         else:
             abort(400, description=f"There is an error in your configuration. Your verb types must be associated with either 'agent', 'patient', or 'transtive' pronouns")
-      
+
         # check agent has a value
         if self.args['agent']:
             # filter all valid pronouns based on value. If none exist, return 400 or 404
-            pronouns = [x for x in pronouns if x['agent']['tag'] in self.args['agent']]
+            pronouns = [x for x in pronouns if x['agent']
+                        ['tag'] in self.args['agent']]
             if not pronouns:
                 if not [x for x in self.all_pronoun_tags if x in self.args['agent']]:
-                    abort(404, description="The pronoun with a tag '{}' does not exist.".format(self.args['agent']))
+                    abort(404, description="The pronoun with a tag '{}' does not exist.".format(
+                        self.args['agent']))
                 else:
-                    abort(400, description="Using the agent tag '{ag}', with the patient tag '{pat}', affix option '{aff}' and verb '{vb}' is not valid.".format(ag=self.args['agent'], pat=self.args['patient'], vb=self.args['root'], aff=self.args['aff-option']))
+                    abort(400, description="Using the agent tag '{ag}', with the patient tag '{pat}', affix option '{aff}' and verb '{vb}' is not valid.".format(
+                        ag=self.args['agent'], pat=self.args['patient'], vb=self.args['root'], aff=self.args['aff-option']))
 
         # check patient has a value
         if self.args['patient']:
             # filter all valid pronouns based on value. If none exist, return 400 or 404
-            pronouns = [x for x in pronouns if x['patient']['tag'] in self.args['patient']]
+            pronouns = [x for x in pronouns if x['patient']
+                        ['tag'] in self.args['patient']]
             if not pronouns:
                 if not [x for x in self.all_pronoun_tags if x in self.args['patient']]:
-                    abort(404, description="The pronoun with a tag '{}' does not exist.".format(self.args['patient']))
+                    abort(404, description="The pronoun with a tag '{}' does not exist.".format(
+                        self.args['patient']))
                 else:
-                    abort(400, description="Using the agent tag '{ag}', with the patient tag '{pat}', affix option '{aff}' and verb '{vb}' is not valid.".format(ag=self.args['agent'], pat=self.args['patient'], vb=self.args['root'], aff=self.args['aff-option']))
-      
+                    abort(400, description="Using the agent tag '{ag}', with the patient tag '{pat}', affix option '{aff}' and verb '{vb}' is not valid.".format(
+                        ag=self.args['agent'], pat=self.args['patient'], vb=self.args['root'], aff=self.args['aff-option']))
+
         return pronouns
+
+    def conditions_met(self, args, condition) -> bool:
+        ''' A method for checking whether a particular post-processing rule should be applied.
+            A condition consists of a key labelled "template_arg_key" and one of the following operations:
+            - equal_to
+            - starts_with
+            - ends_with
+            - contains
+            - regex_contains
+        '''
+        to_check = args[condition['template_arg_key']]
+        if 'equal_to' in condition:
+            return to_check == condition['equal_to']
+        if 'starts_with' in condition:
+            return to_check.startswith(condition['starts_with'])
+        if 'ends_with' in condition:
+            return to_check.endswith(condition['ends_with'])
+        if 'contains' in condition:
+            return condition['contains'] in to_check
+        if 'regex_contains' in condition:
+            contains = re.compile(condition['contains'])
+            return bool(re.search(contains, to_check))
+        logger.info('A post-processing condition was provided to the encoder that had an unrecognized operation.')
+        return False
 
     def return_tags(self):
         """
@@ -91,77 +123,96 @@ class FstEncoder:
 
         # find verb, return 404 if not found, set to range between offset and limit otherwise
         if self.args['root']:
-            verb = [verb for verb in verb_data if verb["tag"] in self.args['root']]
+            verb = [verb for verb in verb_data if verb["tag"]
+                    in self.args['root']]
             if not verb:
-                abort(404, description="The verb with a tag '{}' does not exist".format(self.args['root']))
+                abort(404, description="The verb with a tag '{}' does not exist".format(
+                    self.args['root']))
         else:
             verb = verb_data[self.args['offset']:self.args['limit']]
-      
+
         if self.args['aff-option']:
-            affoption = [affoption for affoption in self.AFF_OPTIONS if affoption['tag'] in self.args['aff-option']]
+            affoption = [
+                affoption for affoption in self.AFF_OPTIONS if affoption['tag'] in self.args['aff-option']]
             if not affoption:
-                abort(404, description="The affix option with a tag '{}' does not exist".format(self.args['aff-option']))
+                abort(404, description="The affix option with a tag '{}' does not exist".format(
+                    self.args['aff-option']))
 
         else:
             affoption = self.AFF_OPTIONS
-     
+
         # tags for FST
         tags = []
 
-        # tags for HTTP response
-        id_tags = []
-
         # for each verb
         for vb in verb:
+            # New OrderedDict representing order of args for template
+            args = OrderedDict({re.sub(re.compile(
+                '[\{\}]'), '', k): "" for k in INTERFACE_CONFIG['encoding']['template'] if "{" in k})
             # tag for FST
-            self.template_args['root'] = vb["tag"]
-            verb_root_id_tag = self.template_args['root']
+            args['root'] = vb["tag"]
+            verb_root_id_tag = args['root']
 
-            verb_type = vb["thematic_relation"]            
-            self.template_args['verb_type'] = LANG_CONFIG['verb_type'][verb_type]['tag']
+            verb_type = vb["thematic_relation"]
+            args['verb_type'] = LANG_CONFIG['verb_type'][verb_type]['tag']
 
             # for each affoption
             for affopt in affoption:
-                # tags for HTTP response **needs +recursive**
+                # tags for HTTP response
                 affopt_id_tag = affopt['tag']
 
                 # tags for FST
                 for aff_type, affixes in LANG_CONFIG['affixes'].items():
-                    self.template_args[aff_type] = ''
+                    args[aff_type] = ''
                     for aff in affopt['affixes']:
                         if aff['type'] == aff_type:
-                            self.template_args[aff_type] = affixes[aff['tag']]['tag']
-                
+                            args[aff_type] = affixes[aff['tag']]['tag']
+
                 # for each pronoun
                 for pronoun in self.return_pronouns(verb_type):
                     # tags for HTTP
                     agent_id_tag = pronoun['agent']['tag']
                     patient_id_tag = pronoun['patient']['tag']
                     # tags for FST
-                    self.template_args['agent'] = LANG_CONFIG['pronoun_role']["agent"] + self.parse_person(pronoun["agent"]) + "+"
-                    self.template_args['patient'] = LANG_CONFIG['pronoun_role']["patient"] + self.parse_person(pronoun["patient"]) + "+"
+                    args['agent'] = LANG_CONFIG['pronoun_role']["agent"] + \
+                        self.parse_person(agent_id_tag) + "+"
+                    args['patient'] = LANG_CONFIG['pronoun_role']["patient"] + \
+                        self.parse_person(patient_id_tag) + "+"
 
-                     # change verb_thematic_relation_tag if aspect is perf TODO: How to put this in config?
-                    if INTERFACE_CONFIG['encoding']['post_processing']:
-                        for process in INTERFACE_CONFIG['encoding']['post_processing']:
-                            conditions = process['conditions']
-                            results = process['results']
-                            conditions_met = [self.template_args[cond['template_arg_key']] == cond['equal_to'] for cond in conditions]
-                            if all(conditions_met):
-                                for result in results:
-                                    if "operation" in result:
-                                        if result['operation'] == 'switch_pros':
-                                            self.template_args['agent'] = LANG_CONFIG['pronoun_role']['agent'] + self.parse_person(pronoun['patient']) + '+'
-                                            self.template_args['patient'] = LANG_CONFIG['pronoun_role']['patient'] + self.parse_person(pronoun['agent']) + '+'
-                                    else:
-                                        self.template_args[result['template_arg_key']] = result['equal_to']
-
-                    filled_template = self.fill_template()
+                    filled_template = self.fill_template(args)
 
                     tags.append({"fst": filled_template,
-                                "http_args": {"root": verb_root_id_tag,
-                                         "agent": agent_id_tag,
-                                         "patient": patient_id_tag,
-                                         "affopt": affopt_id_tag
-                                         }})
+                                 "args": deepcopy(args),
+                                 "http_args": {"root": verb_root_id_tag,
+                                               "agent": agent_id_tag,
+                                               "patient": patient_id_tag,
+                                               "affopt": affopt_id_tag
+                                               }})
+        # Post-process tags based on config file
+        if INTERFACE_CONFIG['encoding']['post_processing']:
+            for process in INTERFACE_CONFIG['encoding']['post_processing']:
+                conditions = process['conditions']
+                results = process['results']
+                # print(conditions)
+                for tag in tags:
+                    conditions_met = [
+                        self.conditions_met(tag['args'], cond) for cond in conditions]
+                    if all(conditions_met):
+                        for result in results:
+                            # Do some set operations, like switching pronouns. Any other operations can be declared here
+                            if "operation" in result:
+                                if result['operation'] == 'switch_pros':
+                                    tag['args']['agent'] = LANG_CONFIG['pronoun_role']['agent'] + \
+                                        self.parse_person(
+                                            tag['http_args']['patient']) + '+'
+                                    tag['args']['patient'] = LANG_CONFIG['pronoun_role']['patient'] + \
+                                        self.parse_person(
+                                            tag['http_args']['agent']) + '+'
+                            # Otherwise just do a basic replace of the input to output
+                            else:
+                                # breakpoint()
+                                tag['args'][result['template_arg_key']
+                                            ] = result['equal_to']
+                            # re-calculate the template
+                            tag['fst'] = self.fill_template(tag['args'])
         return tags
