@@ -7,6 +7,20 @@ class EnglishTest(TestCase):
     def setUp(self):
         self.eg = EnglishGenerator()
 
+        # // {
+        #    // "display": "kkwenny\u00e9nhstha",
+        # // "eng-3": "respects someone/something",
+        # // "eng-inf": "respect someone/something",
+        # // "eng-past": "respected someone/something",
+        # // "eng-perf": "respected someone/something",
+        # // "eng-prog": "respecting someone/something",
+        # // "gloss": "respect someone/something",
+        # // "root": "kwennyenhst",
+        # // "state_type": "hab",
+        # // "tag": "kwenyenhst-r",
+        # // "thematic_relation": "red"
+        #                         //},
+
     def test_copula(self):
         '''Make sure copulas are working with pronouns
         '''
@@ -32,12 +46,12 @@ class EnglishTest(TestCase):
                 self.assertEqual(self.eg.return_have(pn).strip(), 'have')
 
     def test_problems(self):
-        print ('Verb+Fut+Active+AgentSg1+PatSg3Neuter+kwenyes-r+Punct -> ' + self.eg.transduce_tags(
-            'Verb+Fut+Active+AgentSg1+PatSg3Neuter+kwenyes-r+Punct') + '<> I will be able')
-        self.assertEqual(self.eg.transduce_tags('Verb+Fut+Active+AgentSg1+PatSg3Neuter+kwenyes-r+Punct'), "I will be able")
-        self.assertEqual(self.eg.transduce_tags('Verb+Cond+Active+AgentSg1+PatSg3Neuter+kwenyes-r+Punct'), "I would be able")
-        self.assertEqual(self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+kwenyes-r+Habitual'), 'I am able')
-        self.assertEqual(self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+nenhs-r+State'), 'I am stealing something')
+        print ('Verb+Fut+Active+AgentSg1+PatSg3Neuter+kweny-r+Punct -> ' + self.eg.transduce_tags(
+            'Verb+Fut+Active+AgentSg1+PatSg3Neuter+kweny-r+Punct') + '<> I will be able')
+        self.assertEqual(self.eg.transduce_tags('Verb+Fut+Active+AgentSg1+PatSg3Neuter+kweny-r+Punct'), "I will be able")
+        self.assertEqual(self.eg.transduce_tags('Verb+Cond+Active+AgentSg1+PatSg3Neuter+kweny-r+Punct'), "I would be able")
+        self.assertEqual(self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+kweny-r+Habitual'), 'I am able')
+        self.assertEqual(self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+nenhskw-r+State'), 'I am stealing something')
 
     def test_transitive(self):
         str = self.eg.transduce_tags(
@@ -45,26 +59,26 @@ class EnglishTest(TestCase):
         print ('Verb+Fut+Transitive+AgentSg1+PatSg2+kwennyenhst-p+Punct -> ' + self.eg.transduce_tags(
             'Verb+Fut+Transitive+AgentSg1+PatSg2+kwennyenhst-p+Punct') + '<> I will respect you')
 
-        self.assertEqual('I will respect you', self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg2+kwennyenhst-p+Punct'))
+        self.assertEqual('I will respect you', self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg2+kwenyenst-p+Punct'))
 
         self.assertEqual('I would respect him',
-                         self.eg.transduce_tags('Verb+Cond+Transitive+AgentSg1+PatSg3Mal+kwennyenhst-p+Punct'))
+                         self.eg.transduce_tags('Verb+Cond+Transitive+AgentSg1+PatSg3Mal+kwenyenst-p+Punct'))
         self.assertEqual('I respected you',
-                         self.eg.transduce_tags('Verb+DefPast+Transitive+AgentSg1+PatSg2+kwennyenhst-p+Punct'))
+                         self.eg.transduce_tags('Verb+DefPast+Transitive+AgentSg1+PatSg2+kwenyenst-p+Punct'))
         self.assertEqual('I respect you',
-                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg2+kwennyenhst-p+Habitual'))
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg2+kwenyenst-p+Habitual'))
         self.assertEqual('Let me respect you',
-                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg2+kwennyenhst-p+Command'))
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg2+kwenyenst-p+Command'))
         self.assertEqual('I am respecting you',
-                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg2+kwennyenhst-p+State'))
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg2+kwenyenst-p+State'))
         self.assertEqual('I am respecting him',
-                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+kwennyenhst-p+State'))
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+kwenyenst-p+State'))
 
         #convince someone of something
         self.assertEqual('I will convince him of something',
-                         self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg3Mal+7nikonhrakw-p+Punct'))
-        self.assertEqual('Let me convince him of something',
-                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+7nikonhrakw-p+Command'))
+                         self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg3Mal+7nikonhrakweny-p+Punct'))
+        self.assertEqual('(You) convince him of something',
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg2+PatSg3Mal+7nikonhrakweny-p+Command'))
 
         #see someone/something
         self.assertEqual('I will see him',
@@ -72,29 +86,29 @@ class EnglishTest(TestCase):
 
         #make something for someone
         self.assertEqual('I will make something for him',
-                         self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg3Mal+onnyenni-p+Punct'))
+                         self.eg.transduce_tags('Verb+Fut+Transitive+AgentSg1+PatSg3Mal+onnyen-p+Punct'))
 
 
 
     def test_blue(self):
-        self.assertEqual('She will respect someone/something',
-                         self.eg.transduce_tags('Verb+Fut+Passive+AgentSg3Neuter+PatSg3Fem+kwennyenhst-b+Punct'))
-        self.assertEqual('Let her respect someone/something',
-                         self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg3Fem+kwennyenhst-b+Command'))
+        self.assertEqual('She will get hurt',
+                         self.eg.transduce_tags('Verb+Fut+Passive+AgentSg3Neuter+PatSg3Fem+karewaht-b+Punct'))
+        self.assertEqual('(You) get hurt',
+                         self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg2+karewaht-b+Command'))
         self.assertEqual('(You) get angry',
                          self.eg.transduce_tags('Verb+Passive+AgentSg3Neuter+PatSg2+na7khwen-b+Command'))
 
     def test_red(self):
-        self.assertEqual('She will respect someone/something',
-                         self.eg.transduce_tags('Verb+Fut+Active+AgentSg3Fem+PatSg3Neuter+kwennyenhst-r+Punct'))
-        self.assertEqual('Let her respect someone/something',
-                         self.eg.transduce_tags('Verb+Active+AgentSg3Fem+PatSg3Neuter+kwennyenhst-r+Command'))
+        self.assertEqual('She will respect something; value something',
+                         self.eg.transduce_tags('Verb+Fut+Active+AgentSg3Fem+PatSg3Neuter+kwenyenhst-r+Punct'))
+        self.assertEqual('(You) respect something; value something',
+                         self.eg.transduce_tags('Verb+Active+AgentSg2+PatSg3Neuter+kwenyenhst-r+Command'))
         # AgentDu31
-        self.assertEqual('S.o and I are respecting someone/something',
-                         self.eg.transduce_tags('Verb+Active+AgentDu31+PatSg3Neuter+kwennyenhst-r+State'))
+        self.assertEqual('S.o and I are respecting something; valuing something',
+                         self.eg.transduce_tags('Verb+Active+AgentDu31+PatSg3Neuter+kwenyenhst-r+State'))
 
-        self.assertEqual('You and I are respecting someone/something',
-                        self.eg.transduce_tags('Verb+Active+AgentDu21+PatSg3Neuter+kwennyenhst-r+State'))
+        self.assertEqual('You and I are respecting something; valuing something',
+                        self.eg.transduce_tags('Verb+Active+AgentDu21+PatSg3Neuter+kwenyenhst-r+State'))
 
 
     def test_command(self):
@@ -103,9 +117,9 @@ class EnglishTest(TestCase):
 
     def test_stative_pres_regular(self):
         self.assertEqual('I am respecting him',
-                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+kwennyenhst-p+State'))
+                         self.eg.transduce_tags('Verb+Transitive+AgentSg1+PatSg3Mal+kwenyenst-p+State'))
         self.assertEqual('I am stealing something',
-                         self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+nenhs-r+State'))
+                         self.eg.transduce_tags('Verb+Active+AgentSg1+PatSg3Neuter+nenhskw-r+State'))
 
 
 
