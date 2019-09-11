@@ -19,6 +19,8 @@ WordWeaver is a tool for visualizing and interacting with computational linguist
    wordweaver
    wordweaver-UI
    guides
+   configuration
+   data
 
 
 Indices and tables

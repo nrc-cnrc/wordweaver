@@ -1,6 +1,6 @@
 .. wordweaver:
 
-Word Weaver
+WordWeaver
 ==============
 
 Build Tools
@@ -14,21 +14,6 @@ The FileMaker class is used to create both docx and latex outputs of conjugation
 .. autoclass:: wordweaver.buildtools.file_maker.DocxMaker
 
 .. autoclass:: wordweaver.buildtools.file_maker.LatexMaker
-
-
-Configs
-_______________
-
-There are four configuration files (yaml) that inform WordWeaver. A "build" configuration file that informs the Build Tools described above,
-an "environment" configuration file that specifies certain run-time variables and security policies, an "interface" configuration file that specifies the way that
-WordWeaver interacts with the language model, and a "language" configuration file that specifies variables about the language. Check out the :ref:`guides` section to learn how to configure these files properly.
-
-
-Data
-_______________
-
-Your Data folder contains static data for the WordWeaver API, including the fomabin of your language model, a swagger template and flat files (json) containing data about your language's pronouns, verbs and affixes. 
-
 
 FST
 _______________

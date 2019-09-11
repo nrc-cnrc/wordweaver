@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Word Weaver'
+project = 'WordWeaver'
 author = 'Anna Kazantseva & Aidan Pine'
 
 # The short X.Y version
@@ -135,7 +135,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'WordWeaver.tex', 'Word Weaver Documentation',
+    (master_doc, 'WordWeaver.tex', 'WordWeaver Documentation',
      'Aidan Pine', 'manual'),
 ]
 
@@ -145,7 +145,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'wordweaver', 'Word Weaver Documentation',
+    (master_doc, 'wordweaver', 'WordWeaver Documentation',
      [author], 1)
 ]
 
@@ -156,7 +156,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'WordWeaver', 'Word Weaver Documentation',
+    (master_doc, 'WordWeaver', 'WordWeaver Documentation',
      author, 'WordWeaver', 'Vizualize and interact with a Foma language model',
      'Miscellaneous'),
 ]
