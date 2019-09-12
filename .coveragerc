@@ -1,0 +1,4 @@
+[run]
+omit =
+    # Foma
+    wordweaver/fst/foma.py

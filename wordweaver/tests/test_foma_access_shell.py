@@ -20,21 +20,21 @@ class TestFoma_access_shell(TestCase):
         self.foma_shell = foma_access(os.path.join(self.path_to_foma, self.fomabin_name))
 
     def test_up(self):
-        verb = 'sekhón:nis'
+        verb = "^PP-^ke^R-^'níkhons^H^"
         res = self.foma_shell.up(verb)
         if len(res) != 1:
-            self.fail("Expected one answer for 'sekhón:nis'")
+            self.fail("Expected one answer for '^PP-^ke^R-^'níkhons^H^'")
         else:
             for r in res:
                 logger.debug(r)
 
     def test_down(self):
-        tags = 'Verb+Active+AgentSg2+PatSg3Neuter+khonni-perf-r+Habitual'
+        tags = 'Verb+Active+AgentSg1+PatSg3Neuter+7nikhon-r+Habitual'
         res = self.foma_shell.down(tags)
         if len(res) != 1:
-            self.fail("Excpected a single answer for Verb+Active+AgentSg2+PatSg3Neuter+khonni-perf-r+Habitual")
-        elif res[0] != 'sekhón:nis':
-            self.fail('Expected "sekhón:nis", got ' + res[0])
+            self.fail("Excpected a single answer for Verb+Active+AgentSg1+PatSg3Neuter+7nikhon-r+Habitual")
+        elif res[0] != "^PP-^ke^R-^'níkhons^H^":
+            self.fail('Expected "^PP-^ke^R-^\'níkhons^H^", got ' + res[0])
         else:
             logger.debug(res[0])
 

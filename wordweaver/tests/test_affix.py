@@ -8,6 +8,7 @@ from itertools import chain
 
 from slugify import slugify
 
+from wordweaver.resources.affix import AFFIX_OPTIONS
 from wordweaver.config import LANG_CONFIG
 from wordweaver.data import affix_data
 from wordweaver.log import logger
@@ -30,7 +31,7 @@ class AffixTest(TestCase):
         self.affix_tags = [affix['tag'] for affix in self.affix_data]
         self.interface_affix_tags = list(LANG_CONFIG['affixes']['tmp_affix'].keys(
         )) + list(LANG_CONFIG['affixes']['aspect'].keys()) + list(LANG_CONFIG['affixes']['post_aspectual_suffix'].keys())
-        self.affix_options = LANG_CONFIG['affix_options']
+        self.affix_options = AFFIX_OPTIONS['AFFIX_OPTIONS']
         self.aff_options_tags = [x['tag'] for x in self.affix_options]
         self.aff_options_affix_tags = chain.from_iterable([x['affixes'] for x in self.affix_options])
 
@@ -94,7 +95,7 @@ class AffixTest(TestCase):
         Affix options must have one aspect, 0 or 1 temporal affix and 0 or 1 post aspectual suffix
         '''
         for affopt in self.affix_options:
-            types = [aff['type'] for aff in affopt['affixes']]
+            types = [x['type'] for x in affopt['affixes']]
             self.assertTrue(len([t for t in types if t == 'aspect']) == 1)
             self.assertTrue(len([t for t in types if t == 'tmp_affix']) <= 1)
             self.assertTrue(len([t for t in types if t == 'post_aspectual_suffix']) <= 1)

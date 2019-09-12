@@ -69,7 +69,7 @@ flask:
   bg_img: 'static/web/assets/img/bg.jpg'
 swagger:
   urls:
-    - url: '/api/v1'
+    - url: 'http://localhost:5000/api/v1'
       description: 'Version 1 of the API'
   pre: "swagger-pre.json"
   post: "swagger.json"

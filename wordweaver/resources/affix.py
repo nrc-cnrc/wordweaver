@@ -35,10 +35,10 @@ combination_fields = {
 
 # Possible combinations
 def convertAffOption(aff_option):
-        aff_option['tag'] = slugify(aff_option['tag'])
-        aff_option['affixes'] = [item for item in affix_data if item['tag'] in aff_option['affixes']]
-        return aff_option
-# breakpoint()
+    aff_option['tag'] = slugify(aff_option['tag'])
+    aff_option['affixes'] = [item for item in affix_data if item['tag'] in aff_option['affixes']]
+    return aff_option
+    
 AFFIX_OPTIONS = {}
 AFFIX_OPTIONS['CONFIG'] = LANG_CONFIG['affix_options']
 AFFIX_OPTIONS['_AFFIX_OPTIONS'] = tuple(ao for ao in AFFIX_OPTIONS['CONFIG'] if ao['public'])

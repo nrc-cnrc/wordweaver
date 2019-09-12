@@ -65,11 +65,11 @@ class TagTest(TestCase):
             for y in cls.valid_pro_combinations:
                 cls.purple_arg_tuples.append(x + y)
 
-        cls.red_args = [{"verb": [tup[0]] if tup[0] else '', "aff-option": [tup[1]] if tup[1] else '', 
+        cls.red_args = [{"root": [tup[0]] if tup[0] else '', "aff-option": [tup[1]] if tup[1] else '', 
                          "agent": [tup[2]] if tup[2] else '', "patient": [tup[3]] if tup[3] else ''} for tup in cls.red_arg_tuples]
-        cls.blue_args = [{"verb": [tup[0]] if tup[0] else '', "aff-option": [tup[1]] if tup[1] else '', 
+        cls.blue_args = [{"root": [tup[0]] if tup[0] else '', "aff-option": [tup[1]] if tup[1] else '', 
                          "agent": [tup[2]] if tup[2] else '', "patient": [tup[3]] if tup[3] else ''} for tup in cls.blue_arg_tuples]
-        cls.purple_args = [{"verb": [tup[0]] if tup[0] else '', "aff-option": [tup[1]] if tup[1] else '', 
+        cls.purple_args = [{"root": [tup[0]] if tup[0] else '', "aff-option": [tup[1]] if tup[1] else '', 
                             "agent": [tup[2]] if tup[2] else '', "patient": [tup[3]] if tup[3] else ''} for tup in cls.purple_arg_tuples]
         
         # Tag setup
@@ -100,12 +100,12 @@ class TagTest(TestCase):
         '''
         Check if any tag passed as arg is not a valid tag.
         '''
-        proper_args = {"verb": self.red_verb_tags[0], "agent": '1-sg',
+        proper_args = {"root": self.red_verb_tags[0], "agent": '1-sg',
                        "aff-option": self.non_perfective_options[0]['tag'], "patient": ""}
         proper_tag = self.return_tag(proper_args)
         self.assertTrue(self.valid_tag(proper_tag[0]['fst']))
 
-        non_existant_args = {"verb": self.red_verb_tags[0], "agent": '1sing',
+        non_existant_args = {"root": self.red_verb_tags[0], "agent": '1sing',
                              "aff-option": self.non_perfective_options[0]['tag'], 
                              "patient": ""}
 
@@ -118,20 +118,20 @@ class TagTest(TestCase):
         Must not allow patient with red, agent with blue
         '''
         # proper
-        proper_args = {"verb": self.red_verb_tags[0], "agent": '1-sg',
+        proper_args = {"root": self.red_verb_tags[0], "agent": '1-sg',
                        "aff-option": self.non_perfective_options[0]['tag'], "patient": ""}
         proper_tag = self.return_tag(proper_args)
         self.assertTrue(self.valid_tag(proper_tag[0]['fst']))
 
         # patient w/ red
         with self.assertRaises(BadRequest):
-            bad_red_args = {"verb": self.red_verb_tags[0], "agent": '',
+            bad_red_args = {"root": self.red_verb_tags[0], "agent": '',
                             "aff-option": self.non_perfective_options[0]['tag'], "patient": "1-sg"}
             self.return_tag(bad_red_args)
 
         # agent w/ blue
         with self.assertRaises(BadRequest):
-            bad_blue_args = {"verb": self.blue_verb_tags[0], "agent": '1-sg',
+            bad_blue_args = {"root": self.blue_verb_tags[0], "agent": '1-sg',
                              "aff-option": self.non_perfective_options[0]['tag'], "patient": ""}
             self.return_tag(bad_blue_args)
 
@@ -141,16 +141,17 @@ class TagTest(TestCase):
         I.e 1st, 2nd, 2nd + inclusive pros may not
         co-occur.
         '''
-        valid_args = [{"verb": self.purple_verb_tags[0], 'agent': combo[0],
+        valid_args = [{"root": self.purple_verb_tags[0], 'agent': combo[0],
                        "aff-option": self.non_perfective_options[0]['tag'], 
                        "patient": combo[1]} for combo in self.valid_pro_combinations]
-        invalid_args = [{"verb": self.purple_verb_tags[0], 'agent': combo[0],
+        invalid_args = [{"root": self.purple_verb_tags[0], 'agent': combo[0],
                          "aff-option": self.non_perfective_options[0]['tag'], 
                          "patient": combo[1]} for combo in self.invalid_pro_combinations]
 
         for arg in invalid_args:
             with self.assertRaises(BadRequest):
                 tag = self.return_tag(arg)
+                logger.error(tag)
                
         for arg in valid_args:
             tag = self.return_tag(arg)[0]['fst']
@@ -160,7 +161,7 @@ class TagTest(TestCase):
         '''
         Checks if red -> blue when perfective
         '''
-        args = {"verb": self.red_verb_tags[0], "agent": '1-sg',
+        args = {"root": self.red_verb_tags[0], "agent": '1-sg',
                 "aff-option": self.perfective_options[0]['tag'], "patient": ""}
         tag = self.return_tag(args)[0]['fst']
         self.assertTrue(LANG_CONFIG['verb_type']['red']['tag'] not in tag)

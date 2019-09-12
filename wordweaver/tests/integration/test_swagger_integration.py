@@ -51,6 +51,7 @@ class SwaggerSpecIntegrationTest(TestCase):
         All servers in spec should be reachable
         '''
         for host in self.servers:
+            logger.info("Testing with host %s", host)
             for route in self.routes_with_args:
                 try:
                     r = requests.get(host + route, headers=self.headers, timeout=self.timeout)

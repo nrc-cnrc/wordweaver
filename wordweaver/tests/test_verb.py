@@ -24,6 +24,10 @@ class VerbTest(TestCase):
         '''
         Ensure no duplicate tags
         '''
+        print(len(verb_data))
+        print(len(list(set([v['tag'] for v in self.verb_data]))))
+        import collections
+        print(collections.Counter([v['tag'] for v in self.verb_data]))
         self.assertTrue(len(verb_data) == len(list(set([v['tag'] for v in self.verb_data]))))
     
     def test_all_verbs_have_tags(self):

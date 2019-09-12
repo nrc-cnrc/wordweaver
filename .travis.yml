@@ -1,0 +1,38 @@
+sudo: required
+dist: trusty
+
+language: python
+python:
+  - "3.6"
+
+# install system dependencies here with apt-get.
+before_install:
+  - sudo apt-get update -y
+  - sudo apt-get install -y python3 python3-pip python-dev build-essential
+  - sudo apt-get install -y subversion flex bison libreadline-dev libz-dev
+  - sudo apt-get install -y git-all
+
+# install python dependencies including this package in the travis
+# virtualenv
+install:
+  # Install Python dependencies
+  - pip3 install -r /home/travis/build/roedoejet/wordweaver/requirements.txt
+  # Install dev Python dependencies
+  - pip3 install -r /home/travis/build/roedoejet/wordweaver/wordweaver/tests/requirements.txt
+  # Install wordweaver
+  - cd /home/travis/build/roedoejet/wordweaver && pip3 install -e .
+  - cd /home/travis/build/roedoejet && git clone https://github.com/eddieantonio/foma.git
+  - cd /home/travis/build/roedoejet/foma/foma && make && make install
+
+before_script:
+  - python3 /home/travis/build/roedoejet/wordweaver/update_swagger.py
+  - gunicorn wordweaver.app:app --bind 0.0.0.0:5000 --daemon
+
+# commands to run the testing suite. if any of these fail, travic lets us know
+script: 
+  - cd /home/travis/build/roedoejet/wordweaver && python3 run_tests.py all
+  - cd /home/travis/build/roedoejet/wordweaver && coverage run --source wordweaver run_tests.py all
+
+# commands to run after the tests successfully complete
+after_success:
+  - coveralls

@@ -39,7 +39,7 @@ class TestFoma_access_python(TestCase):
             logger.info("Correctly handled wrong path to FST", exc_info=True)
 
     def test_run_up(self):
-        up_tags = 'kekhón:nis'
+        up_tags = "^PP-^ke^R-^'níkhons^H^"
         res = self.foma_accessor.up(up_tags)
         expected = 1
         actual = 0
@@ -52,15 +52,13 @@ class TestFoma_access_python(TestCase):
             self.fail()
 
     def test_run_down(self):
-        down_tags = 'Verb+Active+AgentSg1+PatSg3Neuter+khonni-perf-r+Habitual'
+        down_tags = 'Verb+Active+AgentSg1+PatSg3Neuter+7nikhon-r+Habitual'
         res = self.foma_accessor.down(down_tags)
-
         num_answers = 1
         actual = 0
         for r in res:
             logger.info(r)
             actual = actual + 1
-
         if actual != num_answers:
             logger.error("test_run_down: Incorrect number of answers for test_run_down ({}). Expected {}, "
                          "actual {}.".format(down_tags, num_answers, actual))

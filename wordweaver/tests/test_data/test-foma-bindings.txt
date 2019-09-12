@@ -1,0 +1,3 @@
+Verb+Active+AgentSg1+PatSg3Neuter+7nikhon-r+Habitual
+Verb+Active+AgentSg2+PatSg3Neuter+7nikhon-r+Habitual
+Verb+Active+AgentSg3Mal+PatSg3Neuter+7nikhon-r+Habitual
