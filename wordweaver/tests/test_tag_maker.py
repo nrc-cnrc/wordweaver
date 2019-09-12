@@ -1,21 +1,25 @@
+# -*- coding: utf-8 -*-
+
+""" FST Encoder (ie TagMaker)
+"""
+
 from unittest import TestCase, skip
+import itertools
 import re
 import os
-import itertools
-from . import logger
-from wordweaver.fst.encoder import FstEncoder
-from wordweaver.data.api_data.models import verb_data, pronoun_data
-from wordweaver.resources.affix import AFFIX_OPTIONS
+
 from werkzeug.exceptions import NotFound, BadRequest
-from wordweaver.configs import LANG_CONFIG
-import wordweaver.data.fomabins as fomabins_dir
-from wordweaver import app
+
 from wordweaver.fst.utils.foma_access_python import foma_access_python as foma_access
 from wordweaver.exceptions import NullFomaTransducerException
-
+from wordweaver.resources.affix import AFFIX_OPTIONS
+from wordweaver.data import verb_data, pronoun_data
+from wordweaver.fst.encoder import FstEncoder
+from wordweaver.config import LANG_CONFIG
+from wordweaver.data import data_dir
+from wordweaver.log import logger
 
 class TagTest(TestCase):
-
     @classmethod
     def setUpClass(cls):
         # Pronoun setup
@@ -76,131 +80,129 @@ class TagTest(TestCase):
         cls.fst_tags = cls.red_tags + cls.blue_tags + cls.purple_tags
 
         # FST
-        cls.fp = foma_access(os.path.join(os.path.dirname(fomabins_dir.__file__),
-                               'kawe-28-02-2018.fomabin'))
+        cls.fp = foma_access(os.path.join(data_dir, 'fomabins', 'kawe-28-02-2018.fomabin'))
             
-
-    def valid_tag(cls, tag):
+    def valid_tag(self, tag):
         '''
         Checks tag well-formedness (Xxxx+Xxxx+Xxxx syntax)
         '''
-        match = cls.tag_pattern.search(tag)
+        match = self.tag_pattern.search(tag)
         return match.group() == tag
 
-    def return_tag(cls, args):
+    def return_tag(self, args):
         '''
         Helper to return tag
         '''
         tag_maker = FstEncoder(args)
         return tag_maker.return_tags()
 
-    def test_tag_exists_or_404(cls):
+    def test_tag_exists_or_404(self):
         '''
         Check if any tag passed as arg is not a valid tag.
         '''
-        proper_args = {"verb": cls.red_verb_tags[0], "agent": '1-sg',
-                       "aff-option": cls.non_perfective_options[0]['tag'], "patient": ""}
-        proper_tag = cls.return_tag(proper_args)
-        cls.assertTrue(cls.valid_tag(proper_tag[0]['fst']))
+        proper_args = {"verb": self.red_verb_tags[0], "agent": '1-sg',
+                       "aff-option": self.non_perfective_options[0]['tag'], "patient": ""}
+        proper_tag = self.return_tag(proper_args)
+        self.assertTrue(self.valid_tag(proper_tag[0]['fst']))
 
-        non_existant_args = {"verb": cls.red_verb_tags[0], "agent": '1sing',
-                             "aff-option": cls.non_perfective_options[0]['tag'], 
+        non_existant_args = {"verb": self.red_verb_tags[0], "agent": '1sing',
+                             "aff-option": self.non_perfective_options[0]['tag'], 
                              "patient": ""}
 
-        with cls.assertRaises(NotFound):
-            non_existant_tag = cls.return_tag(non_existant_args)[0]['fst']
-            cls.valid_tag(non_existant_tag)
+        with self.assertRaises(NotFound):
+            non_existant_tag = self.return_tag(non_existant_args)[0]['fst']
+            self.valid_tag(non_existant_tag)
 
-    def test_valid_role_or_400(cls):
+    def test_valid_role_or_400(self):
         '''
         Must not allow patient with red, agent with blue
         '''
         # proper
-        proper_args = {"verb": cls.red_verb_tags[0], "agent": '1-sg',
-                       "aff-option": cls.non_perfective_options[0]['tag'], "patient": ""}
-        proper_tag = cls.return_tag(proper_args)
-        cls.assertTrue(cls.valid_tag(proper_tag[0]['fst']))
+        proper_args = {"verb": self.red_verb_tags[0], "agent": '1-sg',
+                       "aff-option": self.non_perfective_options[0]['tag'], "patient": ""}
+        proper_tag = self.return_tag(proper_args)
+        self.assertTrue(self.valid_tag(proper_tag[0]['fst']))
 
         # patient w/ red
-        with cls.assertRaises(BadRequest):
-            bad_red_args = {"verb": cls.red_verb_tags[0], "agent": '',
-                            "aff-option": cls.non_perfective_options[0]['tag'], "patient": "1-sg"}
-            cls.return_tag(bad_red_args)
+        with self.assertRaises(BadRequest):
+            bad_red_args = {"verb": self.red_verb_tags[0], "agent": '',
+                            "aff-option": self.non_perfective_options[0]['tag'], "patient": "1-sg"}
+            self.return_tag(bad_red_args)
 
         # agent w/ blue
-        with cls.assertRaises(BadRequest):
-            bad_blue_args = {"verb": cls.blue_verb_tags[0], "agent": '1-sg',
-                             "aff-option": cls.non_perfective_options[0]['tag'], "patient": ""}
-            cls.return_tag(bad_blue_args)
+        with self.assertRaises(BadRequest):
+            bad_blue_args = {"verb": self.blue_verb_tags[0], "agent": '1-sg',
+                             "aff-option": self.non_perfective_options[0]['tag'], "patient": ""}
+            self.return_tag(bad_blue_args)
 
-    def test_valid_pn_combo_or_400(cls):
+    def test_valid_pn_combo_or_400(self):
         '''
         Must not allow invalid pn combo.
         I.e 1st, 2nd, 2nd + inclusive pros may not
         co-occur.
         '''
-        valid_args = [{"verb": cls.purple_verb_tags[0], 'agent': combo[0],
-                       "aff-option": cls.non_perfective_options[0]['tag'], 
-                       "patient": combo[1]} for combo in cls.valid_pro_combinations]
-        invalid_args = [{"verb": cls.purple_verb_tags[0], 'agent': combo[0],
-                         "aff-option": cls.non_perfective_options[0]['tag'], 
-                         "patient": combo[1]} for combo in cls.invalid_pro_combinations]
+        valid_args = [{"verb": self.purple_verb_tags[0], 'agent': combo[0],
+                       "aff-option": self.non_perfective_options[0]['tag'], 
+                       "patient": combo[1]} for combo in self.valid_pro_combinations]
+        invalid_args = [{"verb": self.purple_verb_tags[0], 'agent': combo[0],
+                         "aff-option": self.non_perfective_options[0]['tag'], 
+                         "patient": combo[1]} for combo in self.invalid_pro_combinations]
 
         for arg in invalid_args:
-            with cls.assertRaises(BadRequest):
-                tag = cls.return_tag(arg)
+            with self.assertRaises(BadRequest):
+                tag = self.return_tag(arg)
                
         for arg in valid_args:
-            tag = cls.return_tag(arg)[0]['fst']
-            cls.assertTrue(cls.valid_tag(tag))
+            tag = self.return_tag(arg)[0]['fst']
+            self.assertTrue(self.valid_tag(tag))
 
-    def test_thematic_role_switch(cls):
+    def test_thematic_role_switch(self):
         '''
         Checks if red -> blue when perfective
         '''
-        args = {"verb": cls.red_verb_tags[0], "agent": '1-sg',
-                "aff-option": cls.perfective_options[0]['tag'], "patient": ""}
-        tag = cls.return_tag(args)[0]['fst']
-        cls.assertTrue(LANG_CONFIG['verb_type']['red']['tag'] not in tag)
-        cls.assertTrue(LANG_CONFIG['verb_type']['blue']['tag'] in tag)
+        args = {"verb": self.red_verb_tags[0], "agent": '1-sg',
+                "aff-option": self.perfective_options[0]['tag'], "patient": ""}
+        tag = self.return_tag(args)[0]['fst']
+        self.assertTrue(LANG_CONFIG['verb_type']['red']['tag'] not in tag)
+        self.assertTrue(LANG_CONFIG['verb_type']['blue']['tag'] in tag)
     
-    def test_all_tags(cls):
+    def test_all_tags(self):
         '''
         Check if all tags are generated and otherwise produce 400.
         '''
         logger.debug("Generating ALL tags, this might take a while...")
-        red_verb_tag_len = len(cls.red_verb_tags) * len(cls.all_affopts) * len(cls.all_pro_tags)
-        blue_verb_tag_len = len(cls.blue_verb_tags) * len(cls.all_affopts) * len(cls.all_pro_tags)
-        purple_verb_tag_len = len(cls.purple_verb_tags) * len(cls.all_affopts) * len(cls.valid_pro_combinations)
+        red_verb_tag_len = len(self.red_verb_tags) * len(self.all_affopts) * len(self.all_pro_tags)
+        blue_verb_tag_len = len(self.blue_verb_tags) * len(self.all_affopts) * len(self.all_pro_tags)
+        purple_verb_tag_len = len(self.purple_verb_tags) * len(self.all_affopts) * len(self.valid_pro_combinations)
         logger.info("""There are a total of {total} possible tags, 
                     including {red} red verbs, {blue} blue verbs, 
                     and {purple} purple verbs""".format(
                     total=str(red_verb_tag_len + blue_verb_tag_len + purple_verb_tag_len), 
                     red=str(red_verb_tag_len), blue=str(blue_verb_tag_len), purple=str(purple_verb_tag_len)))
 
-        for arg in cls.red_args:
-            tag = cls.return_tag(arg)[0]['fst']
+        for arg in self.red_args:
+            tag = self.return_tag(arg)[0]['fst']
             try:
-                cls.assertTrue(cls.valid_tag(tag))
+                self.assertTrue(self.valid_tag(tag))
             except:
-                cls.fail("The following tag did not work: " + str(tag) 
+                self.fail("The following tag did not work: " + str(tag) 
                              + ". The args that generated it were: " + str(arg))
 
-        for arg in cls.blue_args:
-            tag = cls.return_tag(arg)[0]['fst']
-            cls.assertTrue(cls.valid_tag(tag))
+        for arg in self.blue_args:
+            tag = self.return_tag(arg)[0]['fst']
+            self.assertTrue(self.valid_tag(tag))
 
-        for arg in cls.purple_args:
-            tag = cls.return_tag(arg)[0]['fst']
-            cls.assertTrue(cls.valid_tag(tag))
+        for arg in self.purple_args:
+            tag = self.return_tag(arg)[0]['fst']
+            self.assertTrue(self.valid_tag(tag))
 
-    def test_fst(cls):
+    def test_fst(self):
         '''
         Check if all tags are deemed valid by FST
         '''
-        for tag in cls.fst_tags:
+        for tag in self.fst_tags:
             try:
-                list(cls.fp.down(tag))[0]
+                list(self.fp.down(tag))[0]
             except IndexError:
                 logger.warning("The tag " + tag + " caused an error with the FST.")
             except NullFomaTransducerException:

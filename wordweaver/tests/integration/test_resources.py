@@ -1,11 +1,17 @@
+# -*- coding: utf-8 -*-
+
+""" Checks all data resources give 200s
+"""
+
 from unittest import TestCase
 import re
-from wordweaver import app
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
-from wordweaver.resources.affix import AFFIX_OPTIONS
+
 import requests
-import logging
-from .. import logger
+
+from wordweaver.app import app
+from wordweaver.log import logger
+from wordweaver.resources.affix import AFFIX_OPTIONS
+from wordweaver.data import affix_data, pronoun_data, verb_data
 
 class ResourceIntegrationTest(TestCase):
     """

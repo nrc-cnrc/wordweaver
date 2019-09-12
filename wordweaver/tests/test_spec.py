@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
+
+""" Test Swagger Spec is accurate
+"""
+
 from unittest import TestCase
 import json
 import os
-import requests
-from jsonpointer import resolve_pointer, set_pointer, JsonPointerException
+
+from jsonpointer import resolve_pointer, JsonPointerException
 from slugify import slugify
+
 from wordweaver.resources.affix import AFFIX_OPTIONS
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
-from wordweaver.data import swagger
+from wordweaver.data import affix_data, pronoun_data, verb_data
+from wordweaver.data import data_dir
 from wordweaver import static
-from . import logger
+from wordweaver.log import logger
 
 class SwaggerSpecTest(TestCase):
     def setUp(self):
-        self.pre_path = os.path.join(os.path.dirname(swagger.__file__), "swagger-pre.json")
+        self.pre_path = os.path.join(data_dir, 'swagger', "swagger-pre.json")
         self.static = os.path.join(os.path.dirname(static.__file__), "swagger.json")
         
         with open(self.pre_path, 'r', encoding='utf8') as f:
@@ -63,12 +68,12 @@ class SwaggerSpecTest(TestCase):
         ''' 
         Check that the generated spec sheet has all tags found in json files and vice versa.
         '''
-        self.assertTrue(all([True if tag in self.vb_tags else logger.warn("The verb tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please run 'fab spec'.") for tag in self.gen_vb_tags]))
-        self.assertTrue(all([True if tag in self.pn_tags else logger.warn("The pronoun tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please run 'fab spec'.") for tag in self.gen_pn_tags]))
-        self.assertTrue(all([True if tag in self.aff_tags else logger.warn("The affix tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please run 'fab spec'.") for tag in self.gen_aff_tags]))
-        self.assertTrue(all([True if tag in self.affopt_tags else logger.warn("The affix option tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please run 'fab spec'.") for tag in self.gen_affopt_tags]))
-        self.assertTrue(all([True if tag in self.gen_vb_tags else logger.warn("The verb tag " + tag + " is in the json file, but wasn't generated. Please run 'fab spec'.") for tag in self.vb_tags]))
-        self.assertTrue(all([True if tag in self.gen_pn_tags else logger.warn("The pronoun tag " + tag + " is in the json file, but wasn't generated. Please run 'fab spec'.") for tag in self.pn_tags]))
-        self.assertTrue(all([True if tag in self.gen_aff_tags else logger.warn("The affix tag " + tag + " is in the json file, but wasn't generated. Please run 'fab spec'.") for tag in self.aff_tags]))
-        self.assertTrue(all([True if tag in self.gen_affopt_tags else logger.warn("The affix option tag " + tag + " is in the json file, but wasn't generated. Please run 'fab spec'.") for tag in self.affopt_tags]))
+        self.assertTrue(all([True if tag in self.vb_tags else logger.warn("The verb tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please update your swagger spec.") for tag in self.gen_vb_tags]))
+        self.assertTrue(all([True if tag in self.pn_tags else logger.warn("The pronoun tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please update your swagger spec.") for tag in self.gen_pn_tags]))
+        self.assertTrue(all([True if tag in self.aff_tags else logger.warn("The affix tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please update your swagger spec.") for tag in self.gen_aff_tags]))
+        self.assertTrue(all([True if tag in self.affopt_tags else logger.warn("The affix option tag " + tag + " is in the spec sheet, but doesn't exist in the json file. Please update your swagger spec.") for tag in self.gen_affopt_tags]))
+        self.assertTrue(all([True if tag in self.gen_vb_tags else logger.warn("The verb tag " + tag + " is in the json file, but wasn't generated. Please update your swagger spec.") for tag in self.vb_tags]))
+        self.assertTrue(all([True if tag in self.gen_pn_tags else logger.warn("The pronoun tag " + tag + " is in the json file, but wasn't generated. Please update your swagger spec.") for tag in self.pn_tags]))
+        self.assertTrue(all([True if tag in self.gen_aff_tags else logger.warn("The affix tag " + tag + " is in the json file, but wasn't generated. Please update your swagger spec.") for tag in self.aff_tags]))
+        self.assertTrue(all([True if tag in self.gen_affopt_tags else logger.warn("The affix option tag " + tag + " is in the json file, but wasn't generated. Please update your swagger spec.") for tag in self.affopt_tags]))
 

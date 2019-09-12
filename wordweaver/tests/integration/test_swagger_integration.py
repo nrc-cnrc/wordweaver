@@ -1,21 +1,26 @@
 # -*- coding: utf-8 -*-
+
+""" Checks that Swagger Spec endpoints are valid
+"""
+
 from unittest import TestCase
 import json
 import os
+
+from jsonpointer import resolve_pointer
 import requests
-import re
-from jsonpointer import resolve_pointer, set_pointer, JsonPointerException
-from wordweaver.data import swagger
-from wordweaver.data.api_data.models import pronoun_data, affix_data, verb_data
+
+from wordweaver.data import pronoun_data, affix_data, verb_data
 from wordweaver.resources.affix import AFFIX_OPTIONS
+from wordweaver.data import data_dir
+from wordweaver.log import logger
 from wordweaver import static
-from . import logger
 
 class SwaggerSpecIntegrationTest(TestCase):
     def setUp(self):
         # Swagger
         self.timeout = 5
-        self.pre_path = os.path.join(os.path.dirname(swagger.__file__), "swagger-pre.json")
+        self.pre_path = os.path.join(data_dir, 'swagger', "swagger-pre.json")
         self.static = os.path.join(os.path.dirname(static.__file__), "swagger.json")
         self.prefix = '/api/v1'
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}

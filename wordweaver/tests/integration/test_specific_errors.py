@@ -1,17 +1,20 @@
-from unittest import TestCase
-import re
-import os
-from jsonpointer import resolve_pointer
-import json
-from wordweaver import app
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
-from wordweaver.resources.affix import AFFIX_OPTIONS
-from wordweaver import static
-from wordweaver.data import swagger
-import requests
-import logging
-from .. import logger
+# -*- coding: utf-8 -*-
 
+""" Specific integration test
+"""
+
+from unittest import TestCase
+import json
+import os
+
+from jsonpointer import resolve_pointer
+import requests
+
+from wordweaver.data import affix_data, pronoun_data, verb_data
+from wordweaver.resources.affix import AFFIX_OPTIONS
+from wordweaver.data import data_dir
+from wordweaver.log import logger
+from wordweaver import static
 
 class ResourceIntegrationSpecificErrorTest(TestCase):
     """
@@ -21,7 +24,7 @@ class ResourceIntegrationSpecificErrorTest(TestCase):
     def setUp(self):
          # Swagger
         self.timeout = 5
-        self.pre_path = os.path.join(os.path.dirname(swagger.__file__), "swagger-pre.json")
+        self.pre_path = os.path.join(data_dir, "swagger", "swagger-pre.json")
         self.static = os.path.join(os.path.dirname(static.__file__), "swagger.json")
         self.prefix = '/api/v1'
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}

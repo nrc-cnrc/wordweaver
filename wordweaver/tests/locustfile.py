@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
+
+""" Sets up a locust server to swarm API for stress testing
+"""
+
 from locust import HttpLocust, TaskSet
-import json
 
 def conjugate(l):
     headers = {"Content-Type": "application/json"}

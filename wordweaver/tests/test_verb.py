@@ -1,17 +1,22 @@
+# -*- coding: utf-8 -*-
+
+""" Test verb data
+"""
+
 from unittest import TestCase
-import os
 import json
-from wordweaver.data.api_data.models import verb_data
-from wordweaver.fst.fst_constants import verb_tense, verb_aspect, verb_post_aspectual_suffix
+import os
+
 from slugify import slugify
-from wordweaver.data import api_data
-from . import logger
 
+from wordweaver.data import verb_data
 
+from wordweaver.data import data_dir
+from wordweaver.log import logger
 
 class VerbTest(TestCase):
     def setUp(self):
-        default_data_path = os.path.dirname(os.path.realpath(api_data.__file__))
+        default_data_path = os.path.join(data_dir, 'api_data')
         with open(os.path.join(default_data_path, 'verbs.json'), 'r') as verb_file:
             self.verb_data = json.load(verb_file, encoding='utf-8')
 

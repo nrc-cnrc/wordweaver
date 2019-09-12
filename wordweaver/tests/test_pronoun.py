@@ -1,13 +1,20 @@
+# -*- coding: utf-8 -*-
+
+""" Test Pronoun data
+"""
+
 from unittest import TestCase
-import os, json
-from wordweaver.data import api_data
-from wordweaver.fst.fst_constants import verb_tense, verb_aspect, verb_post_aspectual_suffix
+import json
+import os
+
 from slugify import slugify
-from . import logger
+
+from wordweaver.data import data_dir
+from wordweaver.log import logger
 
 class PronounTest(TestCase):
     def setUp(self):
-        default_data_path = os.path.dirname(os.path.realpath(api_data.__file__))
+        default_data_path = os.path.join(data_dir, 'api_data')
         with open(os.path.join(default_data_path, 'pronouns.json'), 'r') as f:
             self.pronoun_data = json.load(f, encoding='utf-8')
 
@@ -19,7 +26,7 @@ class PronounTest(TestCase):
 
     def test_all_pronouns_have_tags(self):
         '''
-        All pronouns defined in wordweaver/data/api_data/pronouns.json should have a value for tag
+        All pronouns defined in $WW_DATA_DIR/api_data/pronouns.json should have a value for tag
         '''
         self.assertTrue(all(pn['tag'] for pn in self.pronoun_data))
 

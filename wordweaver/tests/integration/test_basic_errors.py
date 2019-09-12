@@ -1,11 +1,16 @@
+# -*- coding: utf-8 -*-
+
+""" This module contains basic sanity-check integration tests.
+"""
+
 from unittest import TestCase
 import re
-from wordweaver import app
-from wordweaver.data.api_data.models import affix_data, pronoun_data, verb_data
-import requests
-import logging
-from .. import logger
 
+import requests
+
+from wordweaver.app import app
+from wordweaver.log import logger
+from wordweaver.data import pronoun_data
 
 class ResourceIntegrationBasicErrorTest(TestCase):
     """

@@ -1,34 +1,39 @@
+# -*- coding: utf-8 -*-
+
+""" Test all things related to affixes
+"""
+
 from unittest import TestCase
-import os, json
-from wordweaver.data import api_data
-from wordweaver.fst.fst_constants import verb_tense, verb_aspect, verb_post_aspectual_suffix
-from wordweaver.resources.affix import AFFIX_OPTIONS
+from itertools import chain
+
 from slugify import slugify
-from . import logger
+
+from wordweaver.config import LANG_CONFIG
+from wordweaver.data import affix_data
+from wordweaver.log import logger
 
 class AffixTest(TestCase):
     """
     This tests the following assumptions:
 
-    - New affixes must be added to wordweaver/data/api_data/affixes.json
-    / and wordweaver/fst/fst_constants and their tags must be valid slugs
+    - New affixes must be added to $WW_DATA_DIR/api_data/affixes.json
+    / and $WW_CONFIG_DIR/lang_config.yaml and their tags must be valid slugs
     / and they must match.
 
-    - For affix options to be made available, they must be declared in 
-    / wordweaver/resources/affix.py and use only valid affix tags as
-    / defined above 
+    - For affix options to be made available, they must be declared in
+    / $WW_CONFIG_DIR/lang_config.yaml and use only valid affix tags as
+    / defined above
 
     """
     def setUp(self):
-        default_data_path = os.path.dirname(os.path.realpath(api_data.__file__))
-        with open(os.path.join(default_data_path, 'affixes.json'), 'r') as f:
-            self.affix_data = json.load(f, encoding='utf-8')
+        self.affix_data = affix_data
         self.affix_tags = [affix['tag'] for affix in self.affix_data]
-        self.fc_affix_tags = list(verb_aspect.keys(
-        )) + list(verb_tense.keys()) + list(verb_post_aspectual_suffix.keys())
-        self.affix_options = AFFIX_OPTIONS['AFFIX_OPTIONS']
-        self.aff_options_tags = AFFIX_OPTIONS['AFFIX_OPTIONS_TAGS']
-        self.aff_options_affix_tags = AFFIX_OPTIONS['AFFIX_OPTIONS_AFFIX_TAGS']
+        self.interface_affix_tags = list(LANG_CONFIG['affixes']['tmp_affix'].keys(
+        )) + list(LANG_CONFIG['affixes']['aspect'].keys()) + list(LANG_CONFIG['affixes']['post_aspectual_suffix'].keys())
+        self.affix_options = LANG_CONFIG['affix_options']
+        self.aff_options_tags = [x['tag'] for x in self.affix_options]
+        self.aff_options_affix_tags = chain.from_iterable([x['affixes'] for x in self.affix_options])
+
     def test_duplicate_affixes(self):
         '''
         Ensure no duplicate tags
@@ -53,9 +58,9 @@ class AffixTest(TestCase):
         wordweaver/data/api_data/affix.json
         '''
         self.assertTrue(
-            all([tag in self.affix_tags for tag in self.fc_affix_tags]))
+            all([tag in self.affix_tags for tag in self.interface_affix_tags]))
         self.assertFalse('foobar' in self.affix_tags)
-        self.assertFalse('foobar' in self.fc_affix_tags)
+        self.assertFalse('foobar' in self.interface_affix_tags)
 
     def test_aff_options(self):
         '''
