@@ -22,7 +22,7 @@ install:
   # Install wordweaver
   - cd /home/travis/build/roedoejet/wordweaver && pip3 install -e .
   - cd /home/travis/build/roedoejet && git clone https://github.com/eddieantonio/foma.git
-  - cd /home/travis/build/roedoejet/foma/foma && make && make install
+  - cd /home/travis/build/roedoejet/foma/foma && sudo make && sudo make install
 
 before_script:
   - python3 /home/travis/build/roedoejet/wordweaver/update_swagger.py
