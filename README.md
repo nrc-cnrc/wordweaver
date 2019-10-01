@@ -9,6 +9,8 @@
 
 > Creating RESTful morphology web services for Iroquoian languages
 
+:warning: :construction: This repo is currently **under construction** :construction: :warning:
+
 Please visit the [docs](https://wordweaver.readthedocs.io/en/latest/?badge=latest) for more information!
 
 ## Table of Contents
@@ -18,6 +20,7 @@ Please visit the [docs](https://wordweaver.readthedocs.io/en/latest/?badge=lates
   - [Install](#install)
   - [Usage](#usage)
   - [Maintainers](#maintainers)
+  - [Contributing](#contributing)
   - [License](#license)
 
 ## Background
@@ -59,4 +62,6 @@ This repo follows the [Contributor Covenant](http://contributor-covenant.org/ver
 
 ## License
 
-[MIT](LICENSE) © Anna Kazantseva, Aidan Pine
+[MIT](LICENSE)
+
+**note**: It is the opinion of the authors that the vestigial and stridently colonial policy contained in Section 12 of the [the Copyright Act](https://laws-lois.justice.gc.ca/eng/acts/C-42/Index.html) which requires by law that the copyrights for National Research Council projects belong to "Her Majesty" is regrettable and a farce.
