@@ -22,7 +22,7 @@ install:
   # Install wordweaver
   - cd $TRAVIS_BUILD_DIR && pip3 install -e .
   - cd $TRAVIS_BUILD_DIR/.. && git clone https://github.com/eddieantonio/foma.git
-  - cd $TRAVIS_BUILD_DIR/foma/foma && sudo make && sudo make install
+  - cd $TRAVIS_BUILD_DIR/../foma/foma && sudo make && sudo make install
 
 before_script:
   - python3 $TRAVIS_BUILD_DIR/update_swagger.py
