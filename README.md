@@ -1,6 +1,6 @@
 # WordWeaver
 
-[![Coverage Status](https://coveralls.io/repos/github/nrc-cnrc/wordweaver/badge.svg?branch=master)](https://coveralls.io/github/roedoejet/wordweaver?branch=master)
+[![Coverage Status](https://codecov.io/gh/nrc-cnrc/wordweaver/branch/master/graph/badge.svg)](https://codecov.io/gh/nrc-cnrc/wordweaver)
 [![Documentation Status](https://readthedocs.org/projects/wordweaver/badge/?version=latest)](https://wordweaver.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.org/nrc-cnrc/wordweaver.svg?branch=master)](https://travis-ci.org/roedoejet/wordweaver)
 [![PyPI package](https://img.shields.io/pypi/v/wordweaver.svg)](https://pypi.org/project/wordweaver/)
