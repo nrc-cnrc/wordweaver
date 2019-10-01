@@ -16,22 +16,22 @@ before_install:
 # virtualenv
 install:
   # Install Python dependencies
-  - pip3 install -r /home/travis/build/roedoejet/wordweaver/requirements.txt
+  - pip3 install -r $TRAVIS_BUILD_DIR/requirements.txt
   # Install dev Python dependencies
-  - pip3 install -r /home/travis/build/roedoejet/wordweaver/wordweaver/tests/requirements.txt
+  - pip3 install -r $TRAVIS_BUILD_DIR/wordweaver/tests/requirements.txt
   # Install wordweaver
-  - cd /home/travis/build/roedoejet/wordweaver && pip3 install -e .
-  - cd /home/travis/build/roedoejet && git clone https://github.com/eddieantonio/foma.git
-  - cd /home/travis/build/roedoejet/foma/foma && sudo make && sudo make install
+  - cd $TRAVIS_BUILD_DIR && pip3 install -e .
+  - cd $TRAVIS_BUILD_DIR/.. && git clone https://github.com/eddieantonio/foma.git
+  - cd $TRAVIS_BUILD_DIR/foma/foma && sudo make && sudo make install
 
 before_script:
-  - python3 /home/travis/build/roedoejet/wordweaver/update_swagger.py
+  - python3 $TRAVIS_BUILD_DIR/update_swagger.py
   - gunicorn wordweaver.app:app --bind 0.0.0.0:5000 --daemon
 
 # commands to run the testing suite. if any of these fail, travic lets us know
 script: 
-  - cd /home/travis/build/roedoejet/wordweaver && python3 run_tests.py all
-  - cd /home/travis/build/roedoejet/wordweaver && coverage run --source wordweaver run_tests.py all
+  - cd $TRAVIS_BUILD_DIR && python3 run_tests.py all
+  - cd $TRAVIS_BUILD_DIR && coverage run --source wordweaver run_tests.py all
 
 # commands to run after the tests successfully complete
 after_success:
