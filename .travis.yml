@@ -30,9 +30,8 @@ before_script:
 
 # commands to run the testing suite. if any of these fail, travic lets us know
 script: 
-  - cd $TRAVIS_BUILD_DIR && python3 run_tests.py all
   - cd $TRAVIS_BUILD_DIR && coverage run --source wordweaver run_tests.py all
 
 # commands to run after the tests successfully complete
 after_success:
-  - coveralls
+  - codecov
