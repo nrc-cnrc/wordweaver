@@ -2,10 +2,10 @@
 
 [![Coverage Status](https://codecov.io/gh/nrc-cnrc/wordweaver/branch/master/graph/badge.svg)](https://codecov.io/gh/nrc-cnrc/wordweaver)
 [![Documentation Status](https://readthedocs.org/projects/wordweaver/badge/?version=latest)](https://wordweaver.readthedocs.io/en/latest/?badge=latest)
-[![Build Status](https://travis-ci.org/nrc-cnrc/wordweaver.svg?branch=master)](https://travis-ci.org/roedoejet/wordweaver)
+[![Build Status](https://travis-ci.org/nrc-cnrc/wordweaver.svg?branch=master)](https://travis-ci.org/nrc-cnrc/wordweaver)
 [![PyPI package](https://img.shields.io/pypi/v/wordweaver.svg)](https://pypi.org/project/wordweaver/)
 [![license](https://img.shields.io/github/license/nrc-cnrc/wordweaver.svg)](LICENSE)
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/roedoejet/wordweaver)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/nrc-cnrc/wordweaver)
 
 > Creating RESTful morphology web services for Iroquoian languages
 
@@ -38,7 +38,7 @@ The best thing to do is install with pip `pip install wordweaver`.
 Otherwise, clone the repo and pip install it locally.
 
 ```sh
-$ git clone https://github.com/roedoejet/wordweaver.git
+$ git clone https://github.com/nrc-cnrc/wordweaver.git
 $ cd wordweaver
 $ pip install -e .
 ```
@@ -55,7 +55,7 @@ Please visit the docs for more information.
 
 ## Contributing
 
-Feel free to dive in! [Open an issue](https://github.com/roedoejet/g2p/issues/new) or submit PRs.
+Feel free to dive in! [Open an issue](https://github.com/nrc-cnrc/wordweaver/issues/new) or submit PRs.
 
 This repo follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
 
