@@ -63,5 +63,3 @@ This repo follows the [Contributor Covenant](http://contributor-covenant.org/ver
 ## License
 
 [MIT](LICENSE)
-
-**note**: It is the opinion of the authors that the vestigial and stridently colonial policy contained in Section 12 of the [the Copyright Act](https://laws-lois.justice.gc.ca/eng/acts/C-42/Index.html) which requires by law that the copyrights for National Research Council projects belong to "Her Majesty" is regrettable and a farce.
