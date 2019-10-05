@@ -1,6 +1,6 @@
-Flask
-flask_restful
-flask_cors
+flask
+flask-restful
+flask-cors
 jsonpointer
 python-slugify
 six
