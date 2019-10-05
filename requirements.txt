@@ -1,4 +1,4 @@
-flask
+Flask>=1.0.2
 flask-restful
 flask-cors
 jsonpointer
