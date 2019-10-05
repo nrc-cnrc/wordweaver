@@ -16,6 +16,7 @@ WordWeaver is a tool for visualizing and interacting with computational linguist
 
    start
    installation
+   cli
    wordweaver
    wordweaver-UI
    guides

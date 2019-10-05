@@ -12,3 +12,4 @@ python-docx
 pylatexenc
 jinja2
 pyyaml
+tqdm

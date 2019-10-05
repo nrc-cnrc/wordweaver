@@ -12,7 +12,7 @@ Or by cloning and installing from source:
 
 .. code-block:: bash
 
-    git clone https://github.com/roedoejet/wordweaver.git
+    git clone https://github.com/nrc-cnrc/wordweaver.git
 
     cd wordweaver
 

@@ -9,7 +9,7 @@ Running your instance
 ----------------------
 
     1. Make sure you have all the required data and configuration files described in :ref:`data` and :ref:`configuration`
-    2. Copy the `sample directory <https://github.com/roedoejet/wordweaver/tree/master/wordweaver/sample>`_ and replace all of the data and configuration files with your own.
+    2. Copy the `sample directory <https://github.com/nrc-cnrc/wordweaver/tree/master/wordweaver/sample>`_ and replace all of the data and configuration files with your own.
     3. Set the environment variable WW_CONFIG_DIR equal to the absolute path to the folder called :code:`configs` from step 2.
     4. Set the environment variable WW_DATA_DIR equal to the absolute path to the folder called :code:`data` from step 2.
     5. Run the following python code, either from the interpreter or in a script:
@@ -48,7 +48,7 @@ Adding/editing a verb
         "thematic_relation": "blue"
         }
 
-    2. Update your Swagger Spec (see :ref:`data`)
+    2. Update your Swagger Spec with :code:`wordweaver spec` (see :ref:`data`)
 
 That's it! Next time you run your WordWeaver instance, the verb will be there.
 
@@ -71,7 +71,8 @@ Adding/editing a pronoun
         "tag": "1-sg"
         }
 
-    2. Update your Swagger Spec (see :ref:`data`)
+    2. Update your Swagger Spec with :code:`wordweaver spec` (see :ref:`data`)
+
     3. Update the :code:`pronoun` key in your interface configuration file. (see :ref:`configuration`)
 
 That's it! Next time you run your WordWeaver instance, the pronoun will be there.
@@ -95,7 +96,7 @@ This step is for adding/editing a new aspect (or tense) to your model.
               - pres
             public: true
 
-    3. Update your Swagger Spec (see :ref:`data`)
+    3. Update your Swagger Spec with :code:`wordweaver spec` (see :ref:`data`)
 
 That's it! Next time you run your WordWeaver instance, the tense/aspect will be there.
 
@@ -130,7 +131,7 @@ This step is for adding/editing affixes that must be selected through 'affix opt
 
 3. Add/edit it for any tense/aspect affix options that require it.
 
-4. Update your Swagger Spec (see :ref:`data`) 
+4. Update your Swagger Spec with :code:`wordweaver spec` (see :ref:`data`)
 
 That's it! Next time you run your WordWeaver instance, the affix will be there.
 
@@ -181,6 +182,6 @@ This step is for adding affixes that are required by verbs but cannot be optiona
             "thematic_relation": "purple"
         }
 
-4. Update your Swagger Spec (see :ref:`data`) 
+4. Update your Swagger Spec with :code:`wordweaver spec` (see :ref:`data`)
 
 That's it! Next time you run your WordWeaver instance, the affix will be there.

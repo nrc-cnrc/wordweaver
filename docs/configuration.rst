@@ -11,7 +11,7 @@ There are four configuration files (yaml) that inform WordWeaver.
     * A **language** configuration file that specifies variables about the language. 
 
 Below is an in-depth description of each configuration file. However, we recommend just altering
-the `sample configuration files <https://github.com/roedoejet/wordweaver/tree/master/wordweaver/sample/configs>`_
+the `sample configuration files <https://github.com/nrc-cnrc/wordweaver/tree/master/wordweaver/sample/configs>`_
 instead of writing yours from scratch. 
 
 For help on how to change specific things about your WordWeaver instance, check out the :ref:`guides` section.
